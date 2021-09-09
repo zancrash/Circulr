@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "457249344037",
+    "project_id": "circulr-fb9b9",
+    "storage_bucket": "circulr-fb9b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457249344037:android:167ec0e59bb12c004a4dcc",
+        "android_client_info": {
+          "package_name": "com.circulrshop.circulr_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrwK0c9ttuLo1Oa00Bgg0Xea7gnY8K1Gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
