@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/login_screen.dart';
+import 'register_screen.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -24,7 +24,7 @@ class FirstRoute extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) => const RegisterScreen()),
             );
           },
         ),

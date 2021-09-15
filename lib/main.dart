@@ -1,21 +1,23 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'screens/register_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  runApp(MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/register': (context) => LoginScreen(),
-      },
-      home: MyApp()));
+  runApp(MyApp());
+  // runApp(MaterialApp(
+  //     initialRoute: '/',
+  //     routes: {
+  //       '/register': (context) => RegisterScreen(),
+  //       '/login': (context) => LoginScreen(),
+  //     },
+  //     home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -23,6 +25,34 @@ class MyApp extends StatefulWidget {
 
   @override
   _MyAppState createState() => _MyAppState();
+}
+
+// void registerScreen(BuildContext context) async {
+//   final newUser = await Navigator.pushNamed(context, '/register');
+// }
+
+class LandingLogic {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // void getPage() {
+
+  // }
+
+  Widget _getLandingPage(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: _auth.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          // GoogleSignInAccount? gUser = _googleSignIn.currentUser;
+          if (snapshot.hasData) {
+            //List? provData = snapshot.data!.providerData;
+            // if ( snapshot.data!.providerData.length == 1) {
+            //   return snapshot.data!.emailVerified ? HomeScreen() : LoginScreen();
+            // }
+            return HomeScreen();
+          }
+          return LoginScreen();
+        });
+  }
 }
 
 class _MyAppState extends State<MyApp> {
@@ -35,122 +65,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
     GoogleSignInAccount? gUser = _googleSignIn.currentUser;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Circulr (Logged' + (user == null ? ' Out' : ' In') + ')'),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              hintText: 'Email',
-            ),
-          ),
-          TextField(
-            controller: passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: 'Password',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  child: Text('Register'),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text);
-                    emailController.clear();
-                    passwordController.clear();
-                    setState(() {});
-                  }),
-              ElevatedButton(
-                  child: Text('Sign In'),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text);
-                    emailController.clear();
-                    passwordController.clear();
-                    setState(() {});
-                  }),
-              ElevatedButton(
-                  child: Text('Sign Out'),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    setState(() {});
-                  }),
-              gUser == null ? Text('Logged out') : Text('Logged in.'),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () async {
-                    await _googleSignIn.signIn();
-                    setState(() {});
-                  },
-                  child: Text('Sign in with Google')),
-              ElevatedButton(
-                  onPressed: () async {
-                    await _googleSignIn.signOut();
-                    setState(() {});
-                  },
-                  child: Text('Sign out from Google')),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: Text('Register Page Test'),
-              ),
-            ],
-          ),
-          // user == null
-          //     ? ElevatedButton(
-          //         child: Text('Logged Out'),
-          //         onPressed: () async {
-          //           setState(() {});
-          //         },
-          //       )
-          //     : ElevatedButton(
-          //         child: Text('Logged In'),
-          //         onPressed: () async {
-          //           setState(() {});
-          //         },
-          //       )
-        ],
-      ),
-    );
+    return (MaterialApp(
+      home: LandingLogic()._getLandingPage(context),
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+      },
+    ));
   }
 }
-
-
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Circulr',
-//       theme: ThemeData(
-//         primarySwatch: Colors.green,
-//         visualDensity: VisualDensity.adaptivePlatformDensity,
-//       ),
-//       home: AuthenticationWrapper(),
-//     );
-//   }
-// }
-
-// class AuthenticationWrapper extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
