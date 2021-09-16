@@ -11,6 +11,24 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication googleAuth =
+      await googleUser!.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
+
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -21,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-    GoogleSignInAccount? gUser = _googleSignIn.currentUser;
+    // GoogleSignInAccount? gUser = _googleSignIn.currentUser;
 
     // if (user == null) {
     //   Navigator.pushNamed(context, '/login');
@@ -62,29 +80,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     passwordController.clear();
                     setState(() {});
                   }),
-              ElevatedButton(
-                  child: Text('Sign Out'),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    setState(() {});
-                  }),
+              // ElevatedButton(
+              //     child: Text('Sign Out'),
+              //     onPressed: () async {
+              //       await FirebaseAuth.instance.signOut();
+              //       setState(() {});
+              //     }),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                  onPressed: () async {
-                    await _googleSignIn.signIn();
-                    setState(() {});
-                  },
+                  onPressed: signInWithGoogle,
                   child: Text('Sign in with Google')),
-              ElevatedButton(
-                  onPressed: () async {
-                    await _googleSignIn.signOut();
-                    setState(() {});
-                  },
-                  child: Text('Sign out from Google')),
+
+              // ElevatedButton(
+              //     onPressed: () async {
+              //       await _googleSignIn.signIn();
+              //       setState(() {});
+              //       // print('user: \n');
+              //       // print(gUser);
+              //     },
+              //     child: Text('Sign in with Google')),
+
+              // ElevatedButton(
+              //     onPressed: () async {
+              //       await _googleSignIn.signOut();
+              //       setState(() {});
+              //     },
+              //     child: Text('Sign out from Google')),
             ],
           ),
           Row(
@@ -97,12 +122,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       MaterialPageRoute(
                           builder: (context) => RegisterScreen()));
                   setState(() {});
+                  print('register pressed');
                 },
                 child: Text('Register'),
               ),
-              gUser == null
-                  ? Text('Logged out from Google.')
-                  : Text('Logged in with Google.'),
+              // gUser == null
+              //     ? Text('Logged out from Google.')
+              //     : Text('Logged in with Google.'),
             ],
           ),
         ],
