@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class ReturnsPage extends StatefulWidget {
+  const ReturnsPage({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ReturnsPageState createState() => _ReturnsPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ReturnsPageState extends State<ReturnsPage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Home',
+      'Returns',
       style: optionStyle,
     );
   }

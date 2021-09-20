@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
+    const googleRed = Color(0xFFde5246);
     // GoogleSignInAccount? gUser = _googleSignIn.currentUser;
 
     // if (user == null) {
@@ -167,8 +168,12 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                  onPressed: signInWithApple,
-                  child: Text('Sign in with Apple')),
+                onPressed: signInWithApple,
+                child: Text('Sign in with Apple'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                ),
+              ),
             ],
           ),
           Row(
@@ -184,6 +189,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   print('register pressed');
                 },
                 child: Text('Register'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.black,
+                  shadowColor: Colors.white,
+                ),
               ),
               // gUser == null
               //     ? Text('Logged out from Google.')

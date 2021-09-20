@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'screens/register_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/index_screen.dart';
+import 'screens/about_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,9 +47,9 @@ class LandingLogic {
           if (snapshot.hasData) {
             //List? provData = snapshot.data!.providerData;
             // if ( snapshot.data!.providerData.length == 1) {
-            //   return snapshot.data!.emailVerified ? HomeScreen() : LoginScreen();
+            //   return snapshot.data!.emailVerified ? IndexScreen() : LoginScreen();
             // }
-            return HomeScreen();
+            return IndexScreen();
           }
           return LoginScreen();
         });
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
+        '/about': (context) => AboutScreen(),
       },
     ));
   }
