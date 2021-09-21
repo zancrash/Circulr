@@ -6,6 +6,7 @@ import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'map_screen.dart';
 import 'returns_page.dart';
+import 'about_screen.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -70,6 +71,8 @@ class _IndexScreenState extends State<IndexScreen> {
                 title: const Text('How it Works'),
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => const AboutScreen()));
                 }),
             ListTile(
                 title: const Text('Our Brands'),
