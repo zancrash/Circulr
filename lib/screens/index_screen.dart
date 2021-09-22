@@ -2,6 +2,7 @@
 // import 'package:circulr_app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'map_screen.dart';
@@ -15,7 +16,34 @@ class IndexScreen extends StatefulWidget {
   _IndexScreenState createState() => _IndexScreenState();
 }
 
+Future<void> getUserDoc() async {
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  User? user = FirebaseAuth.instance.currentUser;
+  DocumentReference ref = _firestore.collection('users').doc(user?.uid);
+  print('adding..');
+  return ref.set({
+    'email': user?.providerData[0].email,
+    'name': user?.providerData[0].displayName,
+    'points': 0,
+  });
+  // await FirebaseFirestore.instance
+  //     .collection('users')
+  //     .doc(user?.uid)
+  //     .set({'email': 'test'});
+}
+
 class _IndexScreenState extends State<IndexScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+  var userName = "";
+
+  // create a new firestore instance
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // String? displayName = user?.providerData[0].displayName.toString();
+  // await FirebaseFirestore.instance.collection('users').doc(newUser?.uid).set({'email': emailController.text});
+
   int _currentIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -73,6 +101,12 @@ class _IndexScreenState extends State<IndexScreen> {
                   Navigator.pop(context);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => const AboutScreen()));
+                  print(user?.providerData[0].displayName);
+                  print(user?.uid);
+                  print(user?.providerData);
+                  // isNewUser();
+                  // print(isNewUser());
+                  getUserDoc();
                 }),
             ListTile(
                 title: const Text('Our Brands'),

@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'register_screen.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 // Google Sign in function
 Future<UserCredential> signInWithGoogle() async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -30,6 +32,23 @@ Future<UserCredential> signInWithGoogle() async {
     accessToken: googleAuth.accessToken,
     idToken: googleAuth.idToken,
   );
+
+  // added code
+  final UserCredential authResult =
+      await _auth.signInWithCredential(credential);
+
+  final User? user = authResult.user;
+
+  // check if user is new
+  if (authResult.additionalUserInfo!.isNewUser) {
+    print(user?.providerData[0].uid);
+    getUserDoc();
+  } else {
+    print('not a new user');
+    getUserDoc();
+  }
+
+  // getUserDoc();
 
   // Once signed in, return the UserCredential
   return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -78,6 +97,20 @@ Future<UserCredential> signInWithApple() async {
   // Sign in the user with Firebase. If the nonce we generated earlier does
   // not match the nonce in `appleCredential.identityToken`, sign in will fail.
   return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+}
+
+Future<void> getUserDoc() async {
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  User? user = FirebaseAuth.instance.currentUser;
+  DocumentReference ref = _firestore.collection('users').doc(user?.uid);
+  print('adding..');
+  return ref.set({'email': user?.providerData[0].email});
+  // await FirebaseFirestore.instance
+  //     .collection('users')
+  //     .doc(user?.uid)
+  //     .set({'email': 'test'});
 }
 
 class _LoginScreenState extends State<LoginScreen> {

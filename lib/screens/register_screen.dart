@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -43,9 +44,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ElevatedButton(
                   child: Text('Create Account'),
                   onPressed: () async {
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text);
+                    UserCredential result = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passwordController.text);
+                    User? newUser = result.user;
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(newUser?.uid)
+                        .set({'email': emailController.text});
                     await FirebaseAuth.instance.signInWithEmailAndPassword(
                         email: emailController.text,
                         password: passwordController.text);
