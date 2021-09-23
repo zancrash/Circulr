@@ -72,6 +72,7 @@ String sha256ofString(String input) {
 }
 
 Future<UserCredential> signInWithApple() async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   // To prevent replay attacks with the credential returned from Apple, we
   // include a nonce in the credential request. When signing in with
   // Firebase, the nonce in the id token returned by Apple, is expected to
@@ -94,6 +95,22 @@ Future<UserCredential> signInWithApple() async {
     rawNonce: rawNonce,
   );
 
+  // added code
+  final UserCredential authResult =
+      await _auth.signInWithCredential(oauthCredential);
+
+  final User? user = authResult.user;
+
+  // check if user is new
+  if (authResult.additionalUserInfo!.isNewUser) {
+    print(user?.providerData[0].uid);
+    getUserDoc();
+  } else {
+    print('not a new user');
+    getUserDoc();
+  }
+  // end of added code
+
   // Sign in the user with Firebase. If the nonce we generated earlier does
   // not match the nonce in `appleCredential.identityToken`, sign in will fail.
   return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
@@ -106,7 +123,11 @@ Future<void> getUserDoc() async {
   User? user = FirebaseAuth.instance.currentUser;
   DocumentReference ref = _firestore.collection('users').doc(user?.uid);
   print('adding..');
-  return ref.set({'email': user?.providerData[0].email});
+  return ref.set({
+    'email': user?.providerData[0].email,
+    'name': user?.providerData[0].displayName,
+    'points': 0,
+  });
   // await FirebaseFirestore.instance
   //     .collection('users')
   //     .doc(user?.uid)
