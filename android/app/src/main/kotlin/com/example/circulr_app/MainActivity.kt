@@ -1,6 +1,7 @@
-package com.example.circulr_app
+package com.circulrshop.circulr_app
 
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity() {
+class MainActivity: FlutterFragmentActivity() {
 }

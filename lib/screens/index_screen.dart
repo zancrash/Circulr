@@ -28,10 +28,6 @@ Future<void> getUserDoc() async {
     'name': user?.providerData[0].displayName,
     'points': 0,
   });
-  // await FirebaseFirestore.instance
-  //     .collection('users')
-  //     .doc(user?.uid)
-  //     .set({'email': 'test'});
 }
 
 class _IndexScreenState extends State<IndexScreen> {
@@ -41,50 +37,23 @@ class _IndexScreenState extends State<IndexScreen> {
   // create a new firestore instance
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // String? displayName = user?.providerData[0].displayName.toString();
-  // await FirebaseFirestore.instance.collection('users').doc(newUser?.uid).set({'email': emailController.text});
-
   int _currentIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    // Text(
-    //   'Index 0: Home',
-    //   style: optionStyle,
-    // ),
     HomeScreen(),
     MapScreen(),
-    // Text(
-    //   'Index 1: Collection Centres',
-    //   style: optionStyle,
-    // ),
     ReturnsPage(),
-    // Text(
-    //   'Index 2: Returns',
-    //   style: optionStyle,
-    // ),
     ProfileScreen(),
-    // Text(
-    //   'Index 3: Profile',
-    //   style: optionStyle,
-    // )
-    // IndexScreen(),
-    // RegisterScreen(),
-    // LoginScreen(),
-    // RegisterScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Circulr Home'),
-      //   backgroundColor: Colors.green,
-      // ),
       body: Center(
-        child: _widgetOptions.elementAt(_currentIndex),
+        child: _widgetOptions
+            .elementAt(_currentIndex), // selected page appears here
       ),
-
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -106,7 +75,7 @@ class _IndexScreenState extends State<IndexScreen> {
                   print(user?.providerData);
                   // isNewUser();
                   // print(isNewUser());
-                  getUserDoc();
+                  // getUserDoc();
                 }),
             ListTile(
                 title: const Text('Our Brands'),
@@ -131,22 +100,6 @@ class _IndexScreenState extends State<IndexScreen> {
           ],
         ),
       ),
-      // body: (Column(
-      //   children: [
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //       children: [
-      //         _widgetOptions.elementAt(_currentIndex),
-      //         ElevatedButton(
-      //             child: Text('Sign Out'),
-      //             onPressed: () async {
-      //               await FirebaseAuth.instance.signOut();
-      //               // setState(() {});
-      //             }),
-      //       ],
-      //     ),
-      //   ],
-      // )),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         showSelectedLabels: false,
@@ -185,11 +138,3 @@ class _IndexScreenState extends State<IndexScreen> {
     );
   }
 }
-
-// class IndexScreen extends StatelessWidget {
-//   const IndexScreen({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//   }
-// }
