@@ -211,7 +211,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                           ),
                         );
                       } else {
-                        // addPurchase();
+                        addPurchase();
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(

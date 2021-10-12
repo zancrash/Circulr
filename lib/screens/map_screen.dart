@@ -16,17 +16,23 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     // return PurchaseForm();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Purchase'),
-        backgroundColor: Colors.green,
-      ),
-      body: PurchaseForm(),
-    );
-
-    // return Text(
-    //   'Collection Centres',
-    //   style: optionStyle,
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text('Purchase'),
+    //     backgroundColor: Colors.green,
+    //     // bottom: const TabBar(
+    //     //   tabs: <Widget>[
+    //     //     Tab(text: 'Add Purchase'),
+    //     //     Tab(text: 'Return Purchase'),
+    //     //   ],
+    //     // ),
+    //   ),
+    //   body: PurchaseForm(),
     // );
+
+    return Text(
+      'Collection Centres',
+      style: optionStyle,
+    );
   }
 }

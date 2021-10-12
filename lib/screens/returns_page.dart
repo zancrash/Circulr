@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:circulr_app/screens/widgets/purchase_form.dart';
+import 'package:circulr_app/screens/widgets/user_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
@@ -17,21 +19,40 @@ class _ReturnsPageState extends State<ReturnsPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   Map<String, dynamic>? paymentIntentData;
-
+  int x = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: ElevatedButton(
-          onPressed: () {
-            makePayment();
-          },
-          child: Text('Pay deposit')),
-    ));
-    // return Text(
-    //   'Returns',
-    //   style: optionStyle,
-    // );
+    // return Scaffold(
+    //     body: Center(
+    //   child: ElevatedButton(
+    //       onPressed: () {
+    //         makePayment();
+    //       },
+    //       child: Text('Pay deposit')),
+    // ));
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Purchase'),
+              backgroundColor: Colors.green,
+              bottom: const TabBar(
+                tabs: <Widget>[
+                  Tab(text: 'Add Purchase'),
+                  Tab(text: 'Return Purchase'),
+                ],
+              ),
+            ),
+            body: TabBarView(
+              children: [
+                Center(child: (x == 0) ? Text('X is 0') : PurchaseForm()),
+                // child: PurchaseForm()),
+                Center(child: UserItems()),
+              ],
+            ),
+          )),
+    );
   }
 
   // move to services file in production...
