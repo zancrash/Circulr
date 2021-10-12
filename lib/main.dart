@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'screens/register_screen.dart';
 import 'screens/login_screen.dart';
@@ -31,16 +30,8 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-// void registerScreen(BuildContext context) async {
-//   final newUser = await Navigator.pushNamed(context, '/register');
-// }
-
 class LandingLogic {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  // void getPage() {
-
-  // }
 
   Widget _getLandingPage(BuildContext context) {
     return StreamBuilder<User?>(

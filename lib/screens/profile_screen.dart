@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
+import 'widgets/user_items.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,9 +15,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Profile',
-      style: optionStyle,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+        backgroundColor: Colors.green,
+      ),
+      body: UserItems(),
     );
   }
 }

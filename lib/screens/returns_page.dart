@@ -65,7 +65,7 @@ class _ReturnsPageState extends State<ReturnsPage> {
         paymentIntentData = null;
       });
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Deposited Successful')));
+          .showSnackBar(SnackBar(content: Text('Deposit Successful')));
     } catch (e) {
       print(e);
     }
