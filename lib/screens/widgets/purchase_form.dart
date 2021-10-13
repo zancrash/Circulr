@@ -88,7 +88,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
     print(itemCount);
     overdueCount = itemCount;
     print('userPastDue executed.');
-    // print('count: ' + overdueCount.toString());
   }
 
   // Get user's overdue items count
@@ -138,16 +137,11 @@ class _PurchaseFormState extends State<PurchaseForm> {
                       });
                 }).toList(),
               ),
-              // Text('Selected: $selectedBrand'),
-              // Text('Select QTY'),
               NumberPicker(
                 value: _currentIntValue,
                 minValue: 1,
                 maxValue: 10,
                 axis: Axis.horizontal,
-                // step: 1,
-                // haptics: true,
-                // onChanged: (value) => setState(() => _currentIntValue = value),
                 onChanged: _handleValueChanged,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
@@ -179,7 +173,8 @@ class _PurchaseFormState extends State<PurchaseForm> {
                     userPastDue();
                     updateUser();
                     int overdues = await getOverdues();
-                    if (overdues > 0) {
+                    print(overdues.toString());
+                    if (await getOverdues() != 0) {
                       showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(

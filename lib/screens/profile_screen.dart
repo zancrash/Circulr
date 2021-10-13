@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'widgets/user_items.dart';
+import 'widgets/user_invoices.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Profile'),
         backgroundColor: Colors.green,
       ),
-      body: UserItems(),
+      body: UserInvoices(),
     );
   }
 }

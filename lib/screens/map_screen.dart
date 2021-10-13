@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'widgets/purchase_form.dart';
+import 'widgets/locations.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -15,24 +16,18 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return PurchaseForm();
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text('Purchase'),
-    //     backgroundColor: Colors.green,
-    //     // bottom: const TabBar(
-    //     //   tabs: <Widget>[
-    //     //     Tab(text: 'Add Purchase'),
-    //     //     Tab(text: 'Return Purchase'),
-    //     //   ],
-    //     // ),
-    //   ),
-    //   body: PurchaseForm(),
-    // );
-
-    return Text(
-      'Collection Centres',
-      style: optionStyle,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Collection Centres'),
+        backgroundColor: Colors.green,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Locations(),
+          ],
+        ),
+      ),
     );
   }
 }

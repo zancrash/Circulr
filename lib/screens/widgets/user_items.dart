@@ -289,15 +289,15 @@ class _UserItemsState extends State<UserItems> {
                                 onPressed: () {
                                   ///
                                   // print(data['past_due']);
-                                  if (data['past_due']) {
-                                    // data['past_due'] = true;
-                                    Navigator.pop(context, 'Done');
-                                    depositAlert();
-                                  } else {
-                                    addReturned();
-                                    deleteItem();
-                                    Navigator.pop(context, 'Done');
-                                  }
+                                  // if (data['past_due']) {
+                                  //   // data['past_due'] = true;
+                                  //   Navigator.pop(context, 'Done');
+                                  //   depositAlert();
+                                  // } else {
+                                  //   addReturned();
+                                  //   deleteItem();
+                                  //   Navigator.pop(context, 'Done');
+                                  // }
                                   // depositAlert();
                                   // Navigator.pop(context, 'Done');
                                   // print(_currentSliderValue.toInt());
@@ -305,6 +305,9 @@ class _UserItemsState extends State<UserItems> {
                                   // makePayment();
                                   // deleteItem();
                                   // Navigator.pop(context, 'Done');
+                                  addReturned();
+                                  deleteItem();
+                                  Navigator.pop(context, 'Done');
                                 },
                                 child: const Text('Done'),
                               ),
