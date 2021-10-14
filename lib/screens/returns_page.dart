@@ -18,8 +18,7 @@ class ReturnsPage extends StatefulWidget {
   _ReturnsPageState createState() => _ReturnsPageState();
 }
 
-class _ReturnsPageState extends State<ReturnsPage>
-    with AfterLayoutMixin<ReturnsPage> {
+class _ReturnsPageState extends State<ReturnsPage> {
   // Map<String, dynamic>? paymentIntentData;
   int x = 0;
   int overdues = 0;
@@ -68,12 +67,12 @@ class _ReturnsPageState extends State<ReturnsPage>
     // );
   }
 
-  @override
-  afterFirstLayout(BuildContext context) async {
-    // getOverdues();
-    print('test');
-    int overdues = await getOverdues();
-  }
+  // @override
+  // afterFirstLayout(BuildContext context) async {
+  //   // getOverdues();
+  //   print('test');
+  //   int overdues = await getOverdues();
+  // }
 
   // Get user's overdue items count
   Future<int> getOverdues() async {

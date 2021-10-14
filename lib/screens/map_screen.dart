@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'widgets/purchase_form.dart';
 import 'widgets/locations.dart';
 
 class MapScreen extends StatefulWidget {

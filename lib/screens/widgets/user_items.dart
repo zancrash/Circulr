@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:circulr_app/screens/widgets/locations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -60,6 +62,55 @@ class _UserItemsState extends State<UserItems> {
     });
   }
 
+  addInvoice(String brand, int qty, DateTime date) async {
+    // final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    User? user = FirebaseAuth.instance.currentUser;
+    DateTime now = new DateTime.now();
+    CollectionReference ref =
+        _firestore.collection('users').doc(user?.uid).collection('invoices');
+
+    print('adding to invoices');
+    // bool exists = checkInvoiceExists(date) as bool;
+    bool exists = await checkInvoiceExists(date);
+    print(exists);
+
+    if (exists == false) {
+      ref.add({
+        'brand': brand,
+        'qty': qty,
+        'amount due': 0.00,
+        'item purchase date': date,
+        'issued': now,
+
+        // 'brand': selectedBrand,
+        // 'qty': _currentSliderValue.toInt(),
+        // 'date': now,
+      });
+    } else {
+      print('Invoice not issued.');
+    }
+  }
+
+  Future<bool> checkInvoiceExists(DateTime date) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    bool exists = false;
+
+    // Query user invoices to see if invoice for product has already been issued.
+    print('Checking if invoice already issued.');
+    var result = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .collection('invoices')
+        .where('item purchase date', isEqualTo: date)
+        .get();
+    result.docs.forEach((res) {
+      exists = res.exists;
+    });
+    return exists;
+  }
+
   int? daysBetween(DateTime? from, DateTime to) {
     from = DateTime(from!.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
@@ -79,13 +130,14 @@ class _UserItemsState extends State<UserItems> {
   }
 
   // Update user overdue items count:
-  int overdueCount = 0;
+  int overdueCount = 0; // varialbe to store number of overdue items
   void userPastDue() async {
     User? user = FirebaseAuth.instance.currentUser;
     DateTime x = DateTime.now().subtract(Duration(days: 30));
 
     int itemCount = 0;
 
+    // query firestore for user items more than 30 days old
     var result = await FirebaseFirestore.instance
         .collection('users')
         .doc(user?.uid)
@@ -93,10 +145,14 @@ class _UserItemsState extends State<UserItems> {
         .where('date', isLessThanOrEqualTo: x)
         .get();
     result.docs.forEach((res) {
-      print(res.data());
-      print(res);
-      print(res.exists);
-      itemCount += 1;
+      // print(res.data());
+      // print(res);
+      // print(res.exists);
+      // print(res.data()['date']);
+      addInvoice(
+          res.data()['brand'], res.data()['qty'], res.data()['date'].toDate());
+      itemCount +=
+          1; // for each item more than 30 days old, increment item count variable
     });
     print(itemCount);
     print('userPastDue executed.');
@@ -140,6 +196,7 @@ class _UserItemsState extends State<UserItems> {
   //   // print(result);
   // }
 
+  // function to get user's overdue count
   Future<int> getOverdues() async {
     User? user = FirebaseAuth.instance.currentUser;
     int overdueCount = 0;
@@ -154,64 +211,80 @@ class _UserItemsState extends State<UserItems> {
     return overdueCount;
   }
 
-  Map<String, dynamic>? paymentIntentData;
+  // Map<String, dynamic>? paymentIntentData;
 
-  // move to services file in production...
-  Future<void> makePayment() async {
-    final url = Uri.parse(
-        'https://us-central1-circulr-fb9b9.cloudfunctions.net/stripePayment');
+  // // move to services file in production...
+  // Future<void> makePayment() async {
+  //   final url = Uri.parse(
+  //       'https://us-central1-circulr-fb9b9.cloudfunctions.net/stripePayment');
 
-    final response =
-        await http.get(url, headers: {'Content-Type': 'application/json'});
+  //   final response =
+  //       await http.get(url, headers: {'Content-Type': 'application/json'});
 
-    paymentIntentData = json.decode(response.body);
+  //   paymentIntentData = json.decode(response.body);
 
-    await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntentData!['paymentIntent'],
-            applePay: true,
-            googlePay: true,
-            // confirmPayment: true,
-            style: ThemeMode.dark,
-            merchantCountryCode: 'CA',
-            merchantDisplayName: 'Circulr'));
-    setState(() {});
+  //   await Stripe.instance.initPaymentSheet(
+  //       paymentSheetParameters: SetupPaymentSheetParameters(
+  //           paymentIntentClientSecret: paymentIntentData!['paymentIntent'],
+  //           applePay: true,
+  //           googlePay: true,
+  //           // confirmPayment: true,
+  //           style: ThemeMode.dark,
+  //           merchantCountryCode: 'CA',
+  //           merchantDisplayName: 'Circulr'));
+  //   setState(() {});
 
-    displayPaymentSheet();
-  }
+  //   displayPaymentSheet();
+  // }
 
-  Future<void> displayPaymentSheet() async {
-    try {
-      await Stripe.instance.presentPaymentSheet();
-      setState(() {
-        paymentIntentData = null;
-      });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Deposit Successful')));
-      addReturned(); // add item to returned items collection
-      deleteItem(); // delete item after successful deposit.
-      userReturnLate(); // decrement user overdue items count.
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<void> displayPaymentSheet() async {
+  //   try {
+  //     await Stripe.instance.presentPaymentSheet();
+  //     setState(() {
+  //       paymentIntentData = null;
+  //     });
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text('Deposit Successful')));
+  //     addReturned(); // add item to returned items collection
+  //     deleteItem(); // delete item after successful deposit.
+  //     userReturnLate(); // decrement user overdue items count.
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  Future<void> depositAlert() async {
-    showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-              title: Text('Item Overdue'),
-              content: Text('Please pay deposit to complete return.'),
-              actions: [TextButton(onPressed: makePayment, child: Text('OK'))],
-            ));
-  }
-
-  void returnDialog() {}
+  // Future<void> depositAlert() async {
+  //   showDialog<String>(
+  //       context: context,
+  //       builder: (BuildContext context) => AlertDialog(
+  //             title: Text('Item Overdue'),
+  //             content: Text('Please pay deposit to complete return.'),
+  //             actions: [TextButton(onPressed: makePayment, child: Text('OK'))],
+  //           ));
+  // }
 
   DateTime? itemPurchased;
   double _currentSliderValue = 1;
 
   int overdues = 0;
+
+  Timer? timer;
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(days: 15), (Timer t) => userPastDue());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void testFunc() async {
+    setState(() {});
+    // print('test func');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,12 +310,13 @@ class _UserItemsState extends State<UserItems> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return ListTile(
-                      title: Text(data['brand']),
+                      title:
+                          Text(data['qty'].toString() + 'x ' + data['brand']),
                       subtitle: Text('Qty: ' + data['qty'].toString()),
                       onTap: () async {
                         selectedBrand = data['brand'];
                         print('Selected: $selectedBrand');
-                        userPastDue();
+                        // userPastDue();
                         itemPurchased = data['date'].toDate();
                         DateTime returnDate = DateTime.now();
                         final difference =
@@ -253,6 +327,7 @@ class _UserItemsState extends State<UserItems> {
                         if (difference! > 30) {
                           data['past_due'] = true;
                           print('set to true');
+                          // addInvoice();
                           // updateUser();
                         } else {
                           data['past_due'] = false;
@@ -271,23 +346,36 @@ class _UserItemsState extends State<UserItems> {
                                     '?'),
                             content:
                                 StatefulBuilder(builder: (context, setState) {
-                              return Slider(
-                                value: _currentSliderValue,
-                                min: 1,
-                                max: 10,
-                                divisions: 10,
-                                label: _currentSliderValue.round().toString(),
-                                onChanged: (double value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                  });
-                                },
+                              return Column(
+                                children: [
+                                  Slider(
+                                    value: _currentSliderValue,
+                                    min: 1,
+                                    max: data['qty'].toDouble(),
+                                    // divisions: 10,
+                                    label:
+                                        _currentSliderValue.round().toString(),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _currentSliderValue = value;
+                                      });
+                                    },
+                                  ),
+                                  // Locations(),
+                                ],
                               );
                             }),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
                                   ///
+
+                                  if (data['past_due']) {
+                                    // data['past_due'] = true;
+                                    // Navigator.pop(context, 'Done');
+                                    // addInvoice();
+                                  }
+
                                   // print(data['past_due']);
                                   // if (data['past_due']) {
                                   //   // data['past_due'] = true;

@@ -15,12 +15,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text('Profile'),
+    //     backgroundColor: Colors.green,
+    //   ),
+    //   body: UserInvoices(),
+    // );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('My Profile'),
         backgroundColor: Colors.green,
       ),
-      body: UserInvoices(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            UserInvoices(),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -42,9 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
     //         separatorBuilder: (context, index) => Divider(color: Colors.green,),
     //         itemCount: 2)
     //         );
-    return Text(
-      'Home',
-      style: optionStyle,
+    return Center(
+      child: Text(
+        'Welcome to the Circulr Economy',
+        style: optionStyle,
+      ),
     );
   }
 }

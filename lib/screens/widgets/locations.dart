@@ -40,7 +40,7 @@ class _LocationsState extends State<Locations> {
                       title: Text(data['name']),
                       subtitle: Text(data['address']),
                       onTap: () async {
-                        DateTime returnDate = DateTime.now();
+                        // DateTime returnDate = DateTime.now();
 
                         print('Selected: ' +
                             data['name'] +
