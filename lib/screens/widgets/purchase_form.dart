@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:flutter_spinbox/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'locationsDropdown.dart';
-import 'locations.dart';
-import 'package:circulr_app/screens/widgets/locationsDropdown.dart';
 import '../services/getInvoiceCount.dart';
 
 class PurchaseForm extends StatefulWidget {
@@ -20,13 +17,9 @@ class PurchaseForm extends StatefulWidget {
 }
 
 class _PurchaseFormState extends State<PurchaseForm> {
-  // final Stream<QuerySnapshot> _brandStream =
-  //     FirebaseFirestore.instance.collection('brands').snapshots();
-  //
   final Stream<QuerySnapshot> _brandStream =
       FirebaseFirestore.instance.collection('brands').snapshots();
   String? selectedBrand;
-  int _currentIntValue = 1;
 
   int selectedQty = 1;
 
@@ -53,25 +46,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
       'past due': pastdue,
     });
   }
-
-  _handleValueChanged(num value) {
-    if (value is int) {
-      setState(() => _currentIntValue = value);
-      selectedQty = _currentIntValue;
-    }
-  }
-
-  // Future<void> updateUser() {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  //   return users
-  //       .doc(user?.uid)
-  //       // .update({'past_due': true})
-  //       .update({'overdue_items': overdueCount})
-  //       // .update({'overdue_items': FieldValue.increment(1)})
-  //       .then((value) => print("User Updated"))
-  //       .catchError((error) => print("Failed to update user: $error"));
-  // }
 
   Map<String, dynamic>? paymentIntentData;
 
@@ -109,9 +83,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
           .showSnackBar(SnackBar(content: Text('Deposit Successful')));
       addPurchase();
       purchaseSuccess();
-      // addReturned(); // add item to returned items collection
-      // deleteItem(); // delete item after successful deposit.
-      // userReturnLate(); // decrement user overdue items count.
     } catch (e) {
       print(e);
     }
@@ -250,36 +221,14 @@ class _PurchaseFormState extends State<PurchaseForm> {
               ),
             );
           }),
-      NumberPicker(
-        value: _currentIntValue,
-        minValue: 1,
-        maxValue: 10,
-        axis: Axis.horizontal,
-        onChanged: _handleValueChanged,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.black26),
-        ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () => setState(() {
-              final newValue = _currentIntValue - 1;
-              _currentIntValue = newValue.clamp(1, 10);
-            }),
-          ),
-          Text('QTY: $_currentIntValue'),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => setState(() {
-              final newValue = _currentIntValue + 1;
-              _currentIntValue = newValue.clamp(1, 10);
-            }),
-          ),
-        ],
+      SpinBox(
+        min: 1,
+        max: 50,
+        value: 1,
+        onChanged: (value) {
+          selectedQty = value.toInt();
+          print(value);
+        },
       ),
       ElevatedButton(
           onPressed: () async {
