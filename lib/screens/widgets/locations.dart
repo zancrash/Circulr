@@ -19,7 +19,7 @@ class _LocationsState extends State<Locations> {
         stream: _locStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('No locations found.');
+            return Text('Error Occurred.');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,27 +29,23 @@ class _LocationsState extends State<Locations> {
             );
           }
 
-          return Column(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                  return ListTile(
-                      title: Text(data['name']),
-                      subtitle: Text(data['address']),
-                      onTap: () async {
-                        // DateTime returnDate = DateTime.now();
+          return ListView(
+            shrinkWrap: true,
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return ListTile(
+                  title: Text(data['name']),
+                  subtitle: Text(data['address']),
+                  onTap: () async {
+                    // DateTime returnDate = DateTime.now();
 
-                        print('Selected: ' +
-                            data['name'] +
-                            ' ' +
-                            data['address'].toString());
-                      });
-                }).toList(),
-              ),
-            ],
+                    print('Selected: ' +
+                        data['name'] +
+                        ' ' +
+                        data['address'].toString());
+                  });
+            }).toList(),
           );
         });
   }

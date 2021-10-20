@@ -1,15 +1,8 @@
-import 'dart:convert';
-
 import 'package:circulr_app/screens/widgets/purchase_form.dart';
 import 'package:circulr_app/screens/widgets/user_items.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:http/http.dart' as http;
-import 'package:after_layout/after_layout.dart';
-
-// import 'package:flutter_stripe/flutter_stripe.dart';
 
 class ReturnsPage extends StatefulWidget {
   const ReturnsPage({Key? key}) : super(key: key);
@@ -41,8 +34,8 @@ class _ReturnsPageState extends State<ReturnsPage> {
               backgroundColor: Colors.green,
               bottom: const TabBar(
                 tabs: <Widget>[
-                  Tab(text: 'Add Purchase'),
-                  Tab(text: 'Return Purchase'),
+                  Tab(text: 'Track Purchases'),
+                  Tab(text: 'Track Returns'),
                 ],
               ),
             ),

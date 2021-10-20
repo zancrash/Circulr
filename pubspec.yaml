@@ -43,6 +43,9 @@ dependencies:
   flutter_form_builder: ^6.1.0+1
   numberpicker: ^2.1.1
   after_layout: ^1.1.0
+  mailer: ^5.0.2
+  args: ^2.3.0
+  flutter_spinbox: ^0.6.0
 
 dev_dependencies:
   flutter_test:

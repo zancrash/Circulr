@@ -19,13 +19,18 @@ class _MapScreenState extends State<MapScreen> {
         title: Text('Collection Centres'),
         backgroundColor: Colors.green,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Locations(),
-          ],
+      body: Center(
+        child: Container(
+          child: Locations(),
         ),
       ),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: <Widget>[
+      //       Locations(),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
