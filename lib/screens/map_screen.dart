@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/locations.dart';
+import 'widgets/MapView.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -21,7 +22,8 @@ class _MapScreenState extends State<MapScreen> {
       ),
       body: Center(
         child: Container(
-          child: Locations(),
+          // child: Locations(),
+          child: MapView(),
         ),
       ),
       // body: SingleChildScrollView(

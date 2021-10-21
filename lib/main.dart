@@ -64,6 +64,7 @@ class _MyAppState extends State<MyApp> {
 
     return (MaterialApp(
       home: LandingLogic()._getLandingPage(context),
+      debugShowCheckedModeBanner: false,
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
