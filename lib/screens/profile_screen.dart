@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Purchase'),
+              title: Text('Profile'),
               backgroundColor: Colors.green,
               bottom: const TabBar(
                 tabs: <Widget>[

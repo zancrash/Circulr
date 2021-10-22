@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     await FirebaseFirestore.instance
                         .collection('users')
                         .doc(newUser?.uid)
-                        .set({'email': emailController.text});
+                        .set({'email': emailController.text, 'points': 0});
                     await FirebaseAuth.instance.signInWithEmailAndPassword(
                         email: emailController.text,
                         password: passwordController.text);
