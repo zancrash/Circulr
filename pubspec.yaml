@@ -47,6 +47,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.11
   numberpicker: ^2.1.1
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
