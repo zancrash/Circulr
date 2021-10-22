@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Text(
         'Welcome to the Circulr Economy',
         style: optionStyle,
+        textAlign: TextAlign.center,
       ),
     );
   }

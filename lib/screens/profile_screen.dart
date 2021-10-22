@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'widgets/user_items.dart';
 import 'widgets/user_invoices.dart';
+import 'widgets/ProfileView.dart';
+import '';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,20 +22,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //     title: Text('Profile'),
     //     backgroundColor: Colors.green,
     //   ),
-    //   body: UserInvoices(),
+    //   body: ProfileView(),
     // );
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Profile'),
-        backgroundColor: Colors.green,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            UserInvoices(),
-          ],
-        ),
-      ),
+    return MaterialApp(
+      home: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Purchase'),
+              backgroundColor: Colors.green,
+              bottom: const TabBar(
+                tabs: <Widget>[
+                  Tab(text: 'Overview'),
+                  Tab(text: 'Track Invoices'),
+                ],
+              ),
+            ),
+            body: TabBarView(
+              children: [
+                // Center(child: PurchaseForm()),
+                Center(
+                  child: ProfileView(),
+                ),
+                Center(child: UserInvoices()),
+              ],
+            ),
+          )),
     );
+
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text('My Profile'),
+    //     backgroundColor: Colors.green,
+    //   ),
+    //   body: SingleChildScrollView(
+    //     child: Column(
+    //       children: <Widget>[
+    //         UserInvoices(),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    // return ProfileView();
   }
 }
