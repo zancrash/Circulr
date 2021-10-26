@@ -13,6 +13,9 @@ void main() async {
   await Firebase.initializeApp();
   Stripe.publishableKey =
       'pk_test_518lokzK7syMq9T2QQICUsRlkQK9cgfbMckQd2tR5i7D51hSV9ZkVIybAAhE6WjLq2pi2BbLDYdFdZpwyBISlMx4E00MDUbCYPF';
+  Stripe.merchantIdentifier = 'circulr';
+  await Stripe.instance.applySettings();
+
   runApp(MyApp());
   // runApp(MaterialApp(
   //     initialRoute: '/',
