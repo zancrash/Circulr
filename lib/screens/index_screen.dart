@@ -8,6 +8,7 @@ import 'profile_screen.dart';
 import 'map_screen.dart';
 import 'returns_page.dart';
 import 'about_screen.dart';
+// import 'services/getPoints.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);

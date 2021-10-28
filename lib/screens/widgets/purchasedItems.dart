@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
 import '../services/addReturned.dart';
 import '../services/deleteItem.dart';
+import '../services/addPoints.dart';
 
 class PurchasedItems extends StatefulWidget {
   const PurchasedItems({Key? key}) : super(key: key);
@@ -91,6 +92,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
             onPressed: () {
               addReturned(selectedItem, returnQty);
               deleteItem(itemId);
+              addPoints();
               Navigator.pop(context, 'Done');
             },
             child: const Text('Done'),

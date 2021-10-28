@@ -12,7 +12,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   static const TextStyle optionStyle = TextStyle(
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: FontWeight.bold,
   );
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +47,11 @@ class _PurchaseFormState extends State<PurchaseForm> {
   }
 
   Map<String, dynamic>? paymentIntentData;
+
+  // Future<PaymentMethod?> createPaymentMethod() async {
+  //   // PaymentMethod paymentMethod = await Stripe.
+  //   const customer = await stripe
+  // }
 
   // move to services file in production...
   Future<void> makePayment() async {
@@ -141,29 +145,13 @@ class _PurchaseFormState extends State<PurchaseForm> {
     print('userPastDue executed.');
   }
 
-  // Get user's overdue items count
-  Future<int> getOverdues() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    int overdueCount = 0;
-
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection('users').doc(user?.uid);
-
-    await docRef.get().then((snapshot) {
-      overdueCount = snapshot['overdue_items'];
-    });
-
-    return overdueCount.toInt();
-  }
-
   // var selectedLoc = LocationsDropdownState.selectedLoc;
   // int overdueCount = 0;
 
   bool requiresDeposit = false;
   // int useroverduecount = 0;
 
-  final Stream<QuerySnapshot> _locStream =
-      FirebaseFirestore.instance.collection('locations').snapshots();
+  // static int userPoints = 0;
 
   Color color = Colors.transparent;
 

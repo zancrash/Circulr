@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'UserPoints.dart';
 import 'UserPurchased.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -13,7 +12,7 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
