@@ -40,18 +40,12 @@ class _PurchaseFormState extends State<PurchaseForm> {
     return ref.add({
       'brand': selectedBrand,
       'qty': selectedQty,
-      // 'location': selectedLoc,
       'date': now,
       'past due': pastdue,
     });
   }
 
   Map<String, dynamic>? paymentIntentData;
-
-  // Future<PaymentMethod?> createPaymentMethod() async {
-  //   // PaymentMethod paymentMethod = await Stripe.
-  //   const customer = await stripe
-  // }
 
   // move to services file in production...
   Future<void> makePayment() async {
@@ -119,49 +113,33 @@ class _PurchaseFormState extends State<PurchaseForm> {
     );
   }
 
-  // Function to increment user's overdue items count if an item is more than 30 days old
-  // int overdueCount = 0;
-  void userPastDue() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    DateTime x = DateTime.now().subtract(Duration(days: 30));
-
-    int itemCount = 0;
-
-    // iterate through user's item purchases:
-    var result = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user?.uid)
-        .collection('items_purchased')
-        .where('date', isLessThanOrEqualTo: x)
-        .get();
-    result.docs.forEach((res) {
-      // print(res.data());
-      // print(res);
-      // print(res.exists);
-      itemCount += 1;
-    });
-    print(itemCount);
-    // overdueCount = itemCount;
-    print('userPastDue executed.');
+  Future<void> reverseDepositAlert() async {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Note: This item requires a delayed deposit.'),
+        content: const Text(
+            'You will be invoiced for \$20 in 30 days if item is not returned within the time-frame.'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              addPurchase();
+              Navigator.pop(context, 'Add');
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    );
   }
-
-  // var selectedLoc = LocationsDropdownState.selectedLoc;
-  // int overdueCount = 0;
 
   bool requiresDeposit = false;
-  // int useroverduecount = 0;
-
-  // static int userPoints = 0;
-
+  String depositType = '';
   Color color = Colors.transparent;
-
-  @override
-  void initState() {
-    super.initState();
-
-    color = Colors.transparent;
-  }
-
   String currentItem = '';
 
   @override
@@ -198,12 +176,14 @@ class _PurchaseFormState extends State<PurchaseForm> {
                       subtitle: Text(data['item_type']),
                       onTap: () {
                         requiresDeposit = data['deposit'];
+                        depositType = data['deposit type'];
                         selectedBrand = data['name'];
                         setState(() {
                           currentItem = document.id;
                         });
-                        print(document.id);
-                        print('Selected: $selectedBrand');
+                        // print(document.id);
+                        // print('Selected: $selectedBrand');
+                        print('deposit type: ' + depositType);
                       });
                 }).toList(),
               ),
@@ -220,10 +200,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
       ),
       ElevatedButton(
           onPressed: () async {
-            // print(useroverduecount);
-            // getInvoiceCount();
-            // int invoiceCount = await getInvoiceCount();
-            // print('count::' + invoiceCount.toString());
             if (await getInvoiceCount() > 0) {
               showDialog<String>(
                   context: context,
@@ -254,9 +230,11 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   ),
                 );
               } else {
-                if (requiresDeposit) {
+                if (depositType == 'direct') {
                   print('Deposit required.');
                   depositAlert();
+                } else if (depositType == 'reverse') {
+                  reverseDepositAlert();
                 } else {
                   addPurchase();
                   purchaseSuccess();

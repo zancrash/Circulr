@@ -6,7 +6,7 @@ import 'package:flutter_spinbox/material.dart';
 import '../services/addGenericReturn.dart';
 import '../services/checkInvoiceExists.dart';
 import '../services/addInvoice.dart';
-import 'purchasedItems.dart';
+import 'PurchasedItems.dart';
 
 class UserItems extends StatefulWidget {
   const UserItems({Key? key}) : super(key: key);
@@ -72,6 +72,7 @@ class _UserItemsState extends State<UserItems> {
         .doc(user?.uid)
         .collection('items_purchased')
         .where('date', isLessThanOrEqualTo: x)
+        .where('deposit type' == 'reverse')
         .get();
     result.docs.forEach((res) {
       addInvoice(
