@@ -24,6 +24,7 @@ addInvoice(String brand, int qty, DateTime date) async {
       'item purchase date': date,
       'issued': now,
     });
+    print('Invoice issued.');
   } else {
     print('Invoice not issued.');
   }

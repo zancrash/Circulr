@@ -107,31 +107,27 @@ class _UserInvoicesState extends State<UserInvoices> {
             );
           }
 
-          return Column(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                  return ListTile(
-                      title: Text(data['brand']),
-                      subtitle: Text(data['issued'].toDate().toString()),
-                      onTap: () async {
-                        // invoiceDate = data['issued'].toDate();
-                        print(document.id);
-                        selectedInvoice = document.id;
-                        makePayment();
-                        // DateTime returnDate = DateTime.now();
+          return ListView(
+            shrinkWrap: true,
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return ListTile(
+                  title: Text(data['brand']),
+                  subtitle: Text(data['issued'].toDate().toString()),
+                  onTap: () async {
+                    // invoiceDate = data['issued'].toDate();
+                    print(document.id);
+                    selectedInvoice = document.id;
+                    makePayment();
+                    // DateTime returnDate = DateTime.now();
 
-                        // print('Selected: ' +
-                        //     data['name'] +
-                        //     ' ' +
-                        //     data['address'].toString());
-                      });
-                }).toList(),
-              ),
-            ],
+                    // print('Selected: ' +
+                    //     data['name'] +
+                    //     ' ' +
+                    //     data['address'].toString());
+                  });
+            }).toList(),
           );
         });
   }

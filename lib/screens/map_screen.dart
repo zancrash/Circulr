@@ -18,6 +18,10 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BorderRadiusGeometry radius = BorderRadius.only(
+      topLeft: Radius.circular(24.0),
+      topRight: Radius.circular(24.0),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Collection Centres'),
@@ -29,24 +33,15 @@ class _MapScreenState extends State<MapScreen> {
             child: Container(child: MapView()),
           ),
           SlidingUpPanel(
-            panel: Stack(
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
-                  height: 70,
-                  child: Center(
-                    child: Text(
-                      'Our Collection Locations:',
-                      style: optionStyle,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 80.0, 0, 0),
-                  child: Locations(),
-                ),
-              ],
+            minHeight: AppBar().preferredSize.height,
+            panel: Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: const Text('Our Collection Locations'),
+              ),
+              body: Locations(),
             ),
+            borderRadius: radius,
           ),
         ],
       ),

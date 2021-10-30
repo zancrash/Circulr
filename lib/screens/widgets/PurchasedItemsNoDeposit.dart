@@ -6,14 +6,15 @@ import '../services/addReturned.dart';
 import '../services/deleteItem.dart';
 import '../services/addPoints.dart';
 
-class PurchasedItems extends StatefulWidget {
-  const PurchasedItems({Key? key}) : super(key: key);
+class PurchasedItemsNoDeposit extends StatefulWidget {
+  const PurchasedItemsNoDeposit({Key? key}) : super(key: key);
 
   @override
-  _PurchasedItemsState createState() => _PurchasedItemsState();
+  _PurchasedItemsNoDepositState createState() =>
+      _PurchasedItemsNoDepositState();
 }
 
-class _PurchasedItemsState extends State<PurchasedItems> {
+class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
   var selectedLoc;
   late String selectedItem;
   late String itemId;
@@ -106,6 +107,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('items_purchased')
+      .where('deposit type', isEqualTo: 'none')
       .snapshots();
 
   @override

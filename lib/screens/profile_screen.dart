@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               bottom: const TabBar(
                 tabs: <Widget>[
                   Tab(text: 'Overview'),
-                  Tab(text: 'Track Invoices'),
+                  Tab(text: 'Deposit Items'),
                 ],
               ),
             ),

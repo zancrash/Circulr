@@ -21,7 +21,7 @@ class _ReturnsPageState extends State<ReturnsPage> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Purchase'),
+              title: Text('Item Tracking'),
               backgroundColor: Colors.green,
               bottom: const TabBar(
                 tabs: <Widget>[

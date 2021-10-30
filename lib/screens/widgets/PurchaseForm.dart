@@ -7,6 +7,9 @@ import 'package:flutter_spinbox/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import '../services/getInvoiceCount.dart';
+import '../services/addPoints.dart';
+
+// import '../services/addPurchase.dart';
 
 class PurchaseForm extends StatefulWidget {
   const PurchaseForm({Key? key}) : super(key: key);
@@ -29,18 +32,24 @@ class _PurchaseFormState extends State<PurchaseForm> {
     User? user = FirebaseAuth.instance.currentUser;
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(now.year, now.month, now.day);
+    DateTime dueDate = DateTime.now().add(Duration(days: 30));
+
     bool pastdue = false;
     CollectionReference ref = _firestore
         .collection('users')
         .doc(user?.uid)
         .collection('items_purchased');
 
-    print('adding..');
+    print('Adding Purchase...');
+    addPoints(1);
+
     // Object? data;
+
     return ref.add({
       'brand': selectedBrand,
       'qty': selectedQty,
       'date': now,
+      'due': dueDate,
       'past due': pastdue,
     });
   }
@@ -60,8 +69,8 @@ class _PurchaseFormState extends State<PurchaseForm> {
     await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
             paymentIntentClientSecret: paymentIntentData!['paymentIntent'],
-            applePay: true,
-            googlePay: true,
+            // applePay: true,
+            // googlePay: true,
             // confirmPayment: true,
             style: ThemeMode.dark,
             merchantCountryCode: 'CA',
@@ -92,7 +101,17 @@ class _PurchaseFormState extends State<PurchaseForm> {
         builder: (BuildContext context) => AlertDialog(
               title: Text('Deposit Required'),
               content: Text('This item requires a direct deposit to add.'),
-              actions: [TextButton(onPressed: makePayment, child: Text('OK'))],
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      makePayment();
+                      Navigator.pop(context, 'OK');
+                    },
+                    child: Text('OK')),
+              ],
             ));
   }
 

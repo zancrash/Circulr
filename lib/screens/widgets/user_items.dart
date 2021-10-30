@@ -7,6 +7,7 @@ import '../services/addGenericReturn.dart';
 import '../services/checkInvoiceExists.dart';
 import '../services/addInvoice.dart';
 import 'PurchasedItems.dart';
+import 'PurchasedItemsNoDeposit.dart';
 
 class UserItems extends StatefulWidget {
   const UserItems({Key? key}) : super(key: key);
@@ -71,8 +72,8 @@ class _UserItemsState extends State<UserItems> {
         .collection('users')
         .doc(user?.uid)
         .collection('items_purchased')
+        .where('deposit type', isEqualTo: 'reverse')
         .where('date', isLessThanOrEqualTo: x)
-        .where('deposit type' == 'reverse')
         .get();
     result.docs.forEach((res) {
       addInvoice(
@@ -119,17 +120,18 @@ class _UserItemsState extends State<UserItems> {
           return Dialog(
               child: Container(
             child: PurchasedItems(),
-          )
-              //     child: Column(
-              //   children: [
-              //     Text('Select Item'),
-              //     Center(
-              //         child: Container(
-              //       child: PurchasedItems(),
-              //     )),
-              //   ],
-              // )),
-              );
+          ));
+        });
+  }
+
+  Future<void> returnBrandedJar() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+              child: Container(
+            child: PurchasedItemsNoDeposit(),
+          ));
         });
   }
 
@@ -185,7 +187,6 @@ class _UserItemsState extends State<UserItems> {
                                       DropdownButton<dynamic>(
                                         items: locItems,
                                         onChanged: (locValue) async {
-                                          print(overdueCount);
                                           setState(() {
                                             selectedLoc = locValue;
                                           });
@@ -225,7 +226,7 @@ class _UserItemsState extends State<UserItems> {
   }
 
   DateTime? itemPurchased;
-  double _currentSliderValue = 1;
+  // double _currentSliderValue = 1;
 
   int overdues = 0;
 
@@ -236,7 +237,7 @@ class _UserItemsState extends State<UserItems> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(minutes: 15), (Timer t) => userPastDue());
+    timer = Timer.periodic(Duration(days: 15), (Timer t) => userPastDue());
   }
 
   @override
@@ -276,38 +277,17 @@ class _UserItemsState extends State<UserItems> {
               onPressed: () {
                 quickReturn();
               },
+              child: Text('Return Branded Jar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                quickReturn();
+              },
               child: Text('Quick Return'),
             ),
           ],
         ),
       ),
     );
-    // return Column(children: [
-    //   Center(
-    //       child: Container(
-    //           height: 100,
-    //           child: Text(
-    //             'Return a Purchased Item:',
-    //             style: titleStyle,
-    //           ))),
-    //   Container(
-    //     child: Column(
-    //       children: [
-    //         ElevatedButton(
-    //           onPressed: () {
-    //             genericReturnDialog();
-    //           },
-    //           child: Text('Return Generic Jar'),
-    //         ),
-    //         ElevatedButton(
-    //           onPressed: () {
-    //             quickReturn();
-    //           },
-    //           child: Text('Quick Return'),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // ]);
   }
 }

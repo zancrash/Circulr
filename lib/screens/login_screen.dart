@@ -45,10 +45,7 @@ Future<UserCredential> signInWithGoogle() async {
     getUserDoc();
   } else {
     print('not a new user');
-    getUserDoc();
   }
-
-  // getUserDoc();
 
   // Once signed in, return the UserCredential
   return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -107,7 +104,6 @@ Future<UserCredential> signInWithApple() async {
     getUserDoc();
   } else {
     print('not a new user');
-    getUserDoc();
   }
   // end of added code
 

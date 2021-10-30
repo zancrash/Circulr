@@ -33,17 +33,19 @@ class _LocationsState extends State<Locations> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-              return ListTile(
-                  title: Text(data['name']),
-                  subtitle: Text(data['address']),
-                  onTap: () async {
-                    // DateTime returnDate = DateTime.now();
+              return Card(
+                child: ListTile(
+                    title: Text(data['name']),
+                    subtitle: Text(data['address']),
+                    onTap: () async {
+                      // DateTime returnDate = DateTime.now();
 
-                    print('Selected: ' +
-                        data['name'] +
-                        ' ' +
-                        data['address'].toString());
-                  });
+                      print('Selected: ' +
+                          data['name'] +
+                          ' ' +
+                          data['address'].toString());
+                    }),
+              );
             }).toList(),
           );
         });

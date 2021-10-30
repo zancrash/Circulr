@@ -4,10 +4,10 @@ import 'getPoints.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-Future<void> addPoints() async {
+Future<void> addPoints(int amount) async {
   User? user = FirebaseAuth.instance.currentUser;
 
-  int updatedPoints = await getPoints() + 1;
+  int updatedPoints = await getPoints() + amount;
 
   return users
       .doc(user?.uid)
