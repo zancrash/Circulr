@@ -237,7 +237,7 @@ class _UserItemsState extends State<UserItems> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(days: 15), (Timer t) => userPastDue());
+    timer = Timer.periodic(Duration(seconds: 15), (Timer t) => userPastDue());
   }
 
   @override

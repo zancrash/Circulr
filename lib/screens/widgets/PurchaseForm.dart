@@ -25,6 +25,8 @@ class _PurchaseFormState extends State<PurchaseForm> {
 
   int selectedQty = 1;
 
+  String? purchaseType;
+
   Future<void>? addPurchase() {
     // final FirebaseAuth _auth = FirebaseAuth.instance;
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -48,6 +50,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
     return ref.add({
       'brand': selectedBrand,
       'qty': selectedQty,
+      'deposit type': purchaseType,
       'date': now,
       'due': dueDate,
       'past due': pastdue,
@@ -197,6 +200,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                         requiresDeposit = data['deposit'];
                         depositType = data['deposit type'];
                         selectedBrand = data['name'];
+                        purchaseType = data['deposit type'];
                         setState(() {
                           currentItem = document.id;
                         });
