@@ -103,7 +103,7 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
     );
   }
 
-  final Stream<QuerySnapshot> _itemStream = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> _itemStreamNoDeposit = FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('items_purchased')
@@ -113,7 +113,7 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _itemStream,
+        stream: _itemStreamNoDeposit,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error Occurred.');

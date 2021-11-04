@@ -54,7 +54,8 @@ Future<void>? addDirectDepositPurchase(String selectedBrand, int selectedQty) {
   });
 }
 
-Future<void>? addPurchase(String selectedBrand, int selectedQty) {
+Future<void>? addPurchase(
+    String selectedBrand, int selectedQty, String purchaseType) {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -75,6 +76,7 @@ Future<void>? addPurchase(String selectedBrand, int selectedQty) {
   return ref.add({
     'brand': selectedBrand,
     'qty': selectedQty,
+    'deposit type': purchaseType,
     'date': now,
     'due': dueDate,
     'past due': pastdue,
