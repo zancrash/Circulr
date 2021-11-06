@@ -96,7 +96,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         content:
             const Text('Item has been successfully added to your account.'),
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
             onPressed: () => Navigator.pop(context, 'Done'),
             child: const Text('Done'),
           ),
@@ -184,8 +184,12 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         }),
         actions: <Widget>[
           TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
             onPressed: () async {
-              Navigator.pop(context, 'Done');
+              Navigator.pop(context, 'Add Purchase');
               if (purchaseType == 'direct') {
                 print('Deposit required.');
                 depositAlert();
@@ -196,7 +200,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                 purchaseSuccess();
               }
             },
-            child: const Text('Done'),
+            child: const Text('Add Purchase'),
           ),
         ],
       ),

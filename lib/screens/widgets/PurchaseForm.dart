@@ -12,6 +12,7 @@ import 'AddItemPurchase.dart';
 import 'ReturnItemPurchase.dart';
 
 // import '../services/addPurchase.dart';
+int? purchaseCount;
 
 class PurchaseForm extends StatefulWidget {
   const PurchaseForm({Key? key}) : super(key: key);
@@ -26,7 +27,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
   String? selectedBrand;
   int selectedQty = 1;
   String? purchaseType;
-  int? purchaseCount;
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 20,
@@ -94,12 +94,12 @@ class _PurchaseFormState extends State<PurchaseForm> {
                 // height: 250,
                 child: AddItemPurchase(),
               ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'Done'),
-                  child: const Text('Done'),
-                ),
-              ],
+              // actions: <Widget>[
+              //   ElevatedButton(
+              //     onPressed: () => Navigator.pop(context, 'Done'),
+              //     child: const Text('Done'),
+              //   ),
+              // ],
             ));
   }
 
@@ -115,7 +115,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                 child: ReturnItemPurchase(),
               ),
               actions: <Widget>[
-                TextButton(
+                ElevatedButton(
                   onPressed: () => Navigator.pop(context, 'Done'),
                   child: const Text('Done'),
                 ),
@@ -156,7 +156,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
               child: InkWell(
                 onTap: () async {
                   purchaseCount = await getPurchaseCount();
-                  print(purchaseCount);
+                  // print(purchaseCount);
                   beginReturn();
                 },
                 child: const SizedBox(

@@ -12,6 +12,7 @@ import 'PurchasedItems.dart';
 import 'PurchasedItemsNoDeposit.dart';
 import '../services/addGenericReturn.dart';
 import '../services/getPurchaseCount.dart';
+import 'PurchaseForm.dart';
 
 class ReturnItemPurchase extends StatefulWidget {
   const ReturnItemPurchase({Key? key}) : super(key: key);
@@ -144,17 +145,26 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
             ));
   }
 
+  // List<String>? returnTypes;
+
   List<String> returnTypes = ['Generic Jar', 'Branded Jar', 'Quick Return'];
 
   @override
   Widget build(BuildContext context) {
+    (purchaseCount == 0)
+        ? returnTypes.removeWhere((item) => item.toString() == 'Quick Return')
+        : print('User has added purchases');
     return ListView.builder(
       shrinkWrap: true,
       itemCount: returnTypes.length,
       itemBuilder: (BuildContext context, int index) {
+        // (purchaseCount != 0) ? index = index - 1 : index = index;
+
         return ListTile(
           title: Text(returnTypes[index]),
           onTap: () {
+            // print(PurchaseForm.purchaseCount);
+            print(purchaseCount);
             if (returnTypes[index].toString() == 'Generic Jar') {
               genericReturnDialog();
             } else if (returnTypes[index].toString() == 'Branded Jar') {

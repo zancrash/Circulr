@@ -14,6 +14,6 @@ Future<int> getPurchaseCount() async {
   result.docs.forEach((res) {
     purchaseCount += 1;
   });
-  print(purchaseCount);
+  // print(purchaseCount);
   return purchaseCount;
 }
