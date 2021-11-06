@@ -207,7 +207,7 @@ class _MapViewState extends State<MapView> {
         markers: getmarkers(), //markers to show on map
       ),
       floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 100.0),
+          padding: const EdgeInsets.only(bottom: 60.0),
           child: FloatingActionButton(
             backgroundColor: Colors.green,
             foregroundColor: Colors.white,

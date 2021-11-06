@@ -114,7 +114,8 @@ class _UserInvoicesState extends State<UserInvoices> {
                   document.data()! as Map<String, dynamic>;
               return ListTile(
                   title: Text(data['brand']),
-                  subtitle: Text(data['issued'].toDate().toString()),
+                  subtitle:
+                      Text('Issued: ' + data['issued'].toDate().toString()),
                   onTap: () async {
                     // invoiceDate = data['issued'].toDate();
                     print(document.id);

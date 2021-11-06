@@ -23,25 +23,23 @@ class _ReturnsPageState extends State<ReturnsPage> {
             appBar: AppBar(
               title: Text('Item Tracking'),
               backgroundColor: Colors.green,
-              bottom: const TabBar(
-                tabs: <Widget>[
-                  Tab(text: 'Track Purchases'),
-                  Tab(text: 'Track Returns'),
-                ],
-              ),
+              // bottom: const TabBar(
+              //   tabs: <Widget>[
+              //     Tab(text: 'Track Purchases'),
+              //     Tab(text: 'Track Returns'),
+              //   ],
+              // ),
             ),
-            body: TabBarView(
-              children: [
-                // Center(child: PurchaseForm()),
-                Center(
-                  child: (overdues != 0)
-                      ? Text(
-                          'Please pay outstanding invoices to add more purchases.')
-                      : PurchaseForm(),
-                ),
-                Center(child: UserItems()),
-              ],
-            ),
+            body: PurchaseForm(),
+            // body: TabBarView(
+            //   children: [
+            //     // Center(child: PurchaseForm()),
+            //     Center(
+            //       child: PurchaseForm(),
+            //     ),
+            //     Center(child: UserItems()),
+            //   ],
+            // ),
           )),
     );
   }

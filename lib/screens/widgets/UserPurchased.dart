@@ -16,6 +16,7 @@ class _UserPurchasedState extends State<UserPurchased> {
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection('items_purchased')
+      .where('deposit type', isNotEqualTo: 'reverse')
       .snapshots();
 
   @override

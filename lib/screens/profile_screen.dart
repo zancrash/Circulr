@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               bottom: const TabBar(
                 tabs: <Widget>[
                   Tab(text: 'Overview'),
-                  Tab(text: 'Deposit Items'),
+                  Tab(text: 'Invoices'),
                 ],
               ),
             ),
@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Center(
                   child: ProfileView(),
                 ),
-                Center(child: UserInvoices()),
+                UserInvoices(),
               ],
             ),
           )),
