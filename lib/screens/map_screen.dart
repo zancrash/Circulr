@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'widgets/locations.dart';
 import 'widgets/MapView.dart';
+import 'widgets/buildDragIcon.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -33,11 +34,25 @@ class _MapScreenState extends State<MapScreen> {
             child: Container(child: MapView()),
           ),
           SlidingUpPanel(
-            minHeight: AppBar().preferredSize.height,
+            // minHeight: AppBar().preferredSize.height,
+            minHeight: 65,
+
             panel: Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: const Text('Our Collection Locations'),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(70.0),
+                child: AppBar(
+                  centerTitle: true,
+                  // title: const Text('Our Collection Locations'),
+                  title: Column(
+                    children: [
+                      buildDragIcon(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text('Our Collection Locations'),
+                      )
+                    ],
+                  ),
+                ),
               ),
               body: Locations(),
             ),

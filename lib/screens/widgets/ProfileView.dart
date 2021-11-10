@@ -3,6 +3,7 @@ import 'UserPoints.dart';
 import 'UserPurchased.dart';
 import 'ReverseDepositItems.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'buildDragIcon.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -27,25 +28,33 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         ),
         SlidingUpPanel(
-          minHeight: AppBar().preferredSize.height,
+          // minHeight: AppBar().preferredSize.height,
+          minHeight: 65,
+          // minHeight: PreferredSize().preferredSize.height,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
           panel: DefaultTabController(
             length: 2,
             child: Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                bottom: const TabBar(
-                  tabs: <Widget>[
-                    Tab(text: 'Reverse Deposit Items'),
-                    Tab(text: 'Other Items'),
-                  ],
-                ),
-                title: Column(
-                  children: [
-                    // buildDragIcon(),
-                    Text('Your Purchased Items'),
-                  ],
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(120.0),
+                child: AppBar(
+                  centerTitle: true,
+                  bottom: const TabBar(
+                    tabs: <Widget>[
+                      Tab(text: 'Reverse Deposit Items'),
+                      Tab(text: 'Other Items'),
+                    ],
+                  ),
+                  title: Column(
+                    children: [
+                      buildDragIcon(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text('Your Purchased Items'),
+                      )
+                    ],
+                  ),
                 ),
               ),
               body: const TabBarView(
@@ -60,13 +69,4 @@ class _ProfileViewState extends State<ProfileView> {
       ],
     );
   }
-
-  Widget buildDragIcon() => Container(
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        width: 40,
-        height: 8,
-      );
 }

@@ -94,6 +94,10 @@ class _PurchasedItemsState extends State<PurchasedItems> {
               deleteItem(itemId);
               addPoints(3);
               Navigator.pop(context, 'Done');
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Item Return Successful!'),
+              ));
+              Navigator.pop(context);
             },
             child: const Text('Done'),
           ),

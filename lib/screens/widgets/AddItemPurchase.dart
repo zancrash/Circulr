@@ -122,6 +122,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
             onPressed: () {
               addPurchase();
               Navigator.pop(context, 'Add');
+              purchaseSuccess();
             },
             child: const Text('Add'),
           ),
@@ -249,6 +250,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
           // );
 
           return ListView(
+            padding: EdgeInsets.all(0),
             shrinkWrap: true,
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =

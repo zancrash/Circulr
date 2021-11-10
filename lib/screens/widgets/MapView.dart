@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
@@ -11,11 +12,76 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   static const _initialCameraPosition = CameraPosition(
-    target: LatLng(43.6532, -79.3832),
+    target: LatLng(43.5890, -79.6441),
     zoom: 8.0,
   );
 
   late GoogleMapController _googleMapController;
+
+  Position? currentPosition;
+  var geoLocator = Geolocator();
+
+  void locatePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Location services are disabled'),
+      ));
+      return Future.error('Location services are disabled.');
+      // } else {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Location services enabled'),
+      //   ));
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Location permissions are denied'),
+        ));
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Location permissions are permanently denied.'),
+      ));
+      return Future.error('Location permissions are permanently denied.');
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentPosition = position;
+
+    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
+    // CameraPosition cameraPosition = _initialCameraPosition;
+
+    CameraPosition cameraPosition =
+        new CameraPosition(target: latLngPosition, zoom: 14.0);
+
+    print(cameraPosition);
+
+    _googleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    // new GoogleMapController.animateCamera(
+    //     CameraUpdate.newCameraPosition(cameraPosition));
+  }
 
   @override
   void dispose() {
@@ -203,7 +269,14 @@ class _MapViewState extends State<MapView> {
         myLocationButtonEnabled: false,
         zoomControlsEnabled: false,
         initialCameraPosition: _initialCameraPosition,
-        onMapCreated: (controller) => _googleMapController = controller,
+        myLocationEnabled: true,
+        zoomGesturesEnabled: true,
+        // onMapCreated: (controller) => _googleMapController = controller,
+        onMapCreated: (controller) async {
+          _googleMapController = controller;
+          locatePosition();
+        },
+
         markers: getmarkers(), //markers to show on map
       ),
       floatingActionButton: Padding(

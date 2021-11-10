@@ -70,7 +70,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
               content: Text(
                   'Please pay any outstanding invoices to add more purchases.'),
               actions: <Widget>[
-                TextButton(
+                ElevatedButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child: const Text('OK'),
                 ),
@@ -82,13 +82,20 @@ class _PurchaseFormState extends State<PurchaseForm> {
     showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: const Text('Select Brand'),
-              // title: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: [
-              //       Text('Select brand'),
-              //     ]),
+              // title: const Text('Select Brand'),
+              titlePadding: EdgeInsets.fromLTRB(35, 10, 5, 0),
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Select brand',
+                    ),
+                    CloseButton(
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ]),
               content: Container(
+                // padding: EdgeInsets.all(0),
                 width: double.minPositive,
                 // width: 200,
                 // height: 250,
@@ -107,19 +114,31 @@ class _PurchaseFormState extends State<PurchaseForm> {
     showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              title: const Text('Select Return Type'),
+              // title: const Text('Select Return Type'),
+              titlePadding: EdgeInsets.fromLTRB(35, 10, 5, 0),
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Select Return Type',
+                    ),
+                    CloseButton(
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ]),
+
               content: Container(
                 width: double.minPositive,
                 // width: 200,
                 // height: 100,
                 child: ReturnItemPurchase(),
               ),
-              actions: <Widget>[
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context, 'Done'),
-                  child: const Text('Done'),
-                ),
-              ],
+              // actions: <Widget>[
+              //   ElevatedButton(
+              //     onPressed: () => Navigator.pop(context, 'Done'),
+              //     child: const Text('Done'),
+              //   ),
+              // ],
             ));
   }
 
