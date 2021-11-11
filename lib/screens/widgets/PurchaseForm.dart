@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter_spinbox/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
-// import 'package:http/http.dart' as http;
+import 'package:circulr_app/styles.dart';
 import '../services/getInvoiceCount.dart';
 import '../services/addPoints.dart';
 import '../services/getPurchaseCount.dart';
 import 'AddItemPurchase.dart';
 import 'ReturnItemPurchase.dart';
 
-// import '../services/addPurchase.dart';
 int? purchaseCount;
 
 class PurchaseForm extends StatefulWidget {
@@ -22,16 +19,9 @@ class PurchaseForm extends StatefulWidget {
 }
 
 class _PurchaseFormState extends State<PurchaseForm> {
-  // final Stream<QuerySnapshot> _brandStream =
-  //     FirebaseFirestore.instance.collection('brands').snapshots();
   String? selectedBrand;
   int selectedQty = 1;
   String? purchaseType;
-
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-  );
 
   Future<void>? addPurchase() {
     // final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -95,18 +85,9 @@ class _PurchaseFormState extends State<PurchaseForm> {
                     ),
                   ]),
               content: Container(
-                // padding: EdgeInsets.all(0),
                 width: double.minPositive,
-                // width: 200,
-                // height: 250,
                 child: AddItemPurchase(),
               ),
-              // actions: <Widget>[
-              //   ElevatedButton(
-              //     onPressed: () => Navigator.pop(context, 'Done'),
-              //     child: const Text('Done'),
-              //   ),
-              // ],
             ));
   }
 
@@ -129,16 +110,8 @@ class _PurchaseFormState extends State<PurchaseForm> {
 
               content: Container(
                 width: double.minPositive,
-                // width: 200,
-                // height: 100,
                 child: ReturnItemPurchase(),
               ),
-              // actions: <Widget>[
-              //   ElevatedButton(
-              //     onPressed: () => Navigator.pop(context, 'Done'),
-              //     child: const Text('Done'),
-              //   ),
-              // ],
             ));
   }
 
@@ -154,6 +127,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
         child: Column(
           children: [
             Card(
+              color: primary,
               child: InkWell(
                 onTap: () async {
                   if (await getInvoiceCount() != 0) {
@@ -166,12 +140,13 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   width: 300,
                   height: 100,
                   child: Center(
-                    child: Text('Add Purchased Item', style: optionStyle),
+                    child: Text('Add Purchased Item', style: purchaseButton),
                   ),
                 ),
               ),
             ),
             Card(
+              color: cBlue,
               child: InkWell(
                 onTap: () async {
                   purchaseCount = await getPurchaseCount();
@@ -182,7 +157,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   width: 300,
                   height: 100,
                   child: Center(
-                    child: Text('Return Purchased Item', style: optionStyle),
+                    child: Text('Return Purchased Item', style: purchaseButton),
                   ),
                 ),
               ),

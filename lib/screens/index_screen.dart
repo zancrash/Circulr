@@ -8,7 +8,10 @@ import 'profile_screen.dart';
 import 'map_screen.dart';
 import 'returns_page.dart';
 import 'about_screen.dart';
+import 'package:circulr_app/styles.dart';
+
 // import 'services/getPoints.dart';
+int _currentIndex = 0;
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -38,9 +41,6 @@ class _IndexScreenState extends State<IndexScreen> {
   // create a new firestore instance
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  int _currentIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     MapScreen(),
@@ -51,83 +51,94 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: cBeige,
       body: Center(
         child: _widgetOptions
             .elementAt(_currentIndex), // selected page appears here
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+        child: Container(
+          color: cBeige,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: primary,
+                ),
+                child: Text('Header'),
               ),
-              child: Text('Header'),
-            ),
-            ListTile(
-                title: const Text('How it Works'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => const AboutScreen()));
-                  print(user?.providerData[0].displayName);
-                  print(user?.uid);
-                  print(user?.providerData);
-                  // isNewUser();
-                  // print(isNewUser());
-                  // getUserDoc();
-                }),
-            ListTile(
-                title: const Text('Our Brands'),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-            ListTile(
-                title: const Text('Referals'),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-            ListTile(
-                title: const Text('FAQ'),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-            ElevatedButton(
-                child: Text('Sign Out'),
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                }),
-          ],
+              ListTile(
+                  title: const Text('How it Works'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const AboutScreen()));
+                    print(user?.providerData[0].displayName);
+                    print(user?.uid);
+                    print(user?.providerData);
+                    // isNewUser();
+                    // print(isNewUser());
+                    // getUserDoc();
+                  }),
+              ListTile(
+                  title: const Text('Our Brands'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  }),
+              ListTile(
+                  title: const Text('Referals'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  }),
+              ListTile(
+                  title: const Text('FAQ'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  }),
+              Container(
+                width: 200,
+                child: ElevatedButton(
+                    child: Text('Sign Out'),
+                    style: TextButton.styleFrom(
+                        primary: cBeige, backgroundColor: cBlue),
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        fixedColor: Colors.green,
+        fixedColor: cBeige,
+        backgroundColor: primary,
         // type: BottomNavigationBarType.shifting,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
-            backgroundColor: Colors.blue,
+            // backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map_sharp),
             title: Text('Collection Centres'),
-            backgroundColor: Colors.pink,
+            // backgroundColor: Colors.pink,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.refresh),
             title: Text('Returns'),
-            backgroundColor: Colors.green,
+            // backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             title: Text('Profile and Points'),
-            backgroundColor: Colors.red,
+            // backgroundColor: Colors.red,
           ),
         ],
         onTap: (index) {

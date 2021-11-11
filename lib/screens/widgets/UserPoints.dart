@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/getPoints.dart';
+import 'package:circulr_app/styles.dart';
 
 class UserPoints extends StatefulWidget {
   const UserPoints({Key? key}) : super(key: key);
@@ -12,20 +13,33 @@ class _UserPointsState extends State<UserPoints> {
   int userPoints = 0;
 
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 200,
+        height: 230,
         child: Column(
           children: [
             Text(
-              'Your Points:',
+              'Circulr Points Earned:',
               style: optionStyle,
             ),
             GetPoints(),
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  Text('100 Points - 10% Discount to G&F'),
+                  SizedBox(height: 10),
+                  Text('500 Points - \$10 coupon for PriZurv'),
+                  SizedBox(height: 10),
+                  Text('10,000 Points - A romantic dinner date with Tyler'),
+                ],
+              ),
+            )
           ],
         ),
       ),

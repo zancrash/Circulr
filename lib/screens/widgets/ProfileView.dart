@@ -4,6 +4,7 @@ import 'UserPurchased.dart';
 import 'ReverseDepositItems.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'buildDragIcon.dart';
+import 'package:circulr_app/styles.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -13,17 +14,13 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
-
-  final panelController = PanelController();
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Center(
           child: Container(
+            color: cBeige,
             child: UserPoints(),
           ),
         ),
@@ -40,6 +37,7 @@ class _ProfileViewState extends State<ProfileView> {
                 preferredSize: Size.fromHeight(120.0),
                 child: AppBar(
                   centerTitle: true,
+                  backgroundColor: cBlue,
                   bottom: const TabBar(
                     tabs: <Widget>[
                       Tab(text: 'Reverse Deposit Items'),

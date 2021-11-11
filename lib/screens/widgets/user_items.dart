@@ -6,6 +6,7 @@ import 'package:flutter_spinbox/material.dart';
 import '../services/addGenericReturn.dart';
 import '../services/checkInvoiceExists.dart';
 import '../services/addInvoice.dart';
+import 'package:circulr_app/styles.dart';
 import 'PurchasedItems.dart';
 import 'PurchasedItemsNoDeposit.dart';
 
@@ -260,6 +261,7 @@ class _UserItemsState extends State<UserItems> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        // color: cBlue,
         height: 200,
         child: Column(
           children: [

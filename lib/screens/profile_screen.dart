@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/user_invoices.dart';
 import 'widgets/ProfileView.dart';
+import 'package:circulr_app/styles.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,9 +11,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
   @override
   Widget build(BuildContext context) {
     // return Scaffold(
@@ -27,8 +25,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Profile'),
-              backgroundColor: Colors.green,
+              title: Text(
+                'Profile',
+                style: appBarHeader,
+              ),
+              backgroundColor: primary,
               bottom: const TabBar(
                 tabs: <Widget>[
                   Tab(text: 'Overview'),
@@ -42,7 +43,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Center(
                   child: ProfileView(),
                 ),
-                UserInvoices(),
+                Container(
+                  color: cBeige,
+                  child: UserInvoices(),
+                ),
               ],
             ),
           )),

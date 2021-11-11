@@ -3,6 +3,7 @@ import 'package:circulr_app/screens/widgets/user_items.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:circulr_app/styles.dart';
 
 class ReturnsPage extends StatefulWidget {
   const ReturnsPage({Key? key}) : super(key: key);
@@ -21,8 +22,11 @@ class _ReturnsPageState extends State<ReturnsPage> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Item Tracking'),
-              backgroundColor: Colors.green,
+              title: Text(
+                'Item Tracking',
+                style: appBarHeader,
+              ),
+              backgroundColor: primary,
               // bottom: const TabBar(
               //   tabs: <Widget>[
               //     Tab(text: 'Track Purchases'),
@@ -30,7 +34,7 @@ class _ReturnsPageState extends State<ReturnsPage> {
               //   ],
               // ),
             ),
-            body: PurchaseForm(),
+            body: PurchaseForm(), backgroundColor: cBeige,
             // body: TabBarView(
             //   children: [
             //     // Center(child: PurchaseForm()),

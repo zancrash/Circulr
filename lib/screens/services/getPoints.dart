@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:circulr_app/styles.dart';
 
 class GetPoints extends StatelessWidget {
   // final String documentId;
 
   // GetPoints(this.documentId);
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +30,11 @@ class GetPoints extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-          return Text(data['points'].toString(), style: optionStyle);
+          return Text(data['points'].toString(), style: userPoints);
         }
 
-        return Text("loading");
+        return CircularProgressIndicator();
+        // return Text("loading");
       },
     );
   }

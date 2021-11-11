@@ -3,6 +3,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'widgets/locations.dart';
 import 'widgets/MapView.dart';
 import 'widgets/buildDragIcon.dart';
+import 'package:circulr_app/styles.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -25,8 +26,11 @@ class _MapScreenState extends State<MapScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Collection Centres'),
-        backgroundColor: Colors.green,
+        title: Text(
+          'Collection Centres',
+          style: appBarHeader,
+        ),
+        backgroundColor: primary,
       ),
       body: Stack(
         children: <Widget>[
@@ -42,13 +46,17 @@ class _MapScreenState extends State<MapScreen> {
                 preferredSize: Size.fromHeight(70.0),
                 child: AppBar(
                   centerTitle: true,
+                  backgroundColor: cBlue,
                   // title: const Text('Our Collection Locations'),
                   title: Column(
                     children: [
                       buildDragIcon(),
                       Padding(
                         padding: EdgeInsets.only(top: 10),
-                        child: Text('Our Collection Locations'),
+                        child: Text(
+                          'Our Collection Locations',
+                          style: appBarHeader,
+                        ),
                       )
                     ],
                   ),
