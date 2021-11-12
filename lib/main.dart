@@ -1,3 +1,4 @@
+import 'package:circulr_app/screens/PartneredBrands.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/about': (context) => AboutScreen(),
+        '/brands': (context) => PartneredBrands(),
       },
     ));
   }

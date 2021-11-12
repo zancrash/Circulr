@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:circulr_app/styles.dart';
 import 'widgets/locations.dart';
+import 'PartneredBrands.dart';
+import 'CollectionLocations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -183,19 +185,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            content: Locations(),
-                          ),
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const PartneredBrands()));
                       },
                       child: Text('Partnered Brands'),
                       style: TextButton.styleFrom(
                           primary: cBeige, backgroundColor: primary),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const CollectionLocations()));
+                      },
                       child: Text('Our Collection Sites'),
                       style: TextButton.styleFrom(
                           primary: cBeige, backgroundColor: cBlue),

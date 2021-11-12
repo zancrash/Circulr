@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:circulr_app/styles.dart';
-import 'widgets/BrandList.dart';
+import 'widgets/locations.dart';
 
-class PartneredBrands extends StatelessWidget {
-  const PartneredBrands({Key? key}) : super(key: key);
+class CollectionLocations extends StatelessWidget {
+  const CollectionLocations({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: cBeige,
       appBar: AppBar(
-        title: Text('Our Partnered Brands'),
+        title: Text('Our Collection Locations'),
         backgroundColor: primary,
       ),
-      body: BrandList(),
+      body: Locations(),
     );
   }
 }

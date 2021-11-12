@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:circulr_app/styles.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('How it Works'),
-        backgroundColor: Colors.green,
+        backgroundColor: primary,
       ),
       body: Column(
         children: [

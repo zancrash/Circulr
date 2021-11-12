@@ -1,14 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'register_screen.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:circulr_app/styles.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -131,6 +132,7 @@ Future<void> getUserDoc() async {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -146,111 +148,277 @@ class _LoginScreenState extends State<LoginScreen> {
     // if (user == null) {
     //   Navigator.pushNamed(context, '/login');
     // }
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text((user == null
-            ? 'Enter Email and Password'
-            : 'Logged into Circulr')),
-        backgroundColor: Colors.green,
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              hintText: 'Email',
-            ),
-          ),
-          TextField(
-            controller: passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: 'Password',
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  child: Text('Sign In'),
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text);
-                    emailController.clear();
-                    passwordController.clear();
-                    setState(() {});
-                  }),
-              // ElevatedButton(
-              //     child: Text('Sign Out'),
-              //     onPressed: () async {
-              //       await FirebaseAuth.instance.signOut();
-              //       setState(() {});
-              //     }),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: signInWithGoogle,
-                  child: Text('Sign in with Google')),
+      backgroundColor: cBeige,
+      // appBar: AppBar(
+      //   title: Text((user == null
+      //       ? 'Enter Email and Password'
+      //       : 'Logged into Circulr')),
+      //   backgroundColor: primary,
+      // ),
 
-              // ElevatedButton(
-              //     onPressed: () async {
-              //       await _googleSignIn.signIn();
-              //       setState(() {});
-              //       // print('user: \n');
-              //       // print(gUser);
-              //     },
-              //     child: Text('Sign in with Google')),
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Image(
+              //   image: AssetImage('circulr_light_wide'),
+              // ),
+              Image.asset(
+                'assets/circulr_light_wide.png',
+                width: MediaQuery.of(context).size.width * 0.8,
+                // width: 200,
+              ),
+              SizedBox(height: 15),
+              TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        titlePadding: EdgeInsets.fromLTRB(35, 10, 5, 0),
+                        title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Sign in With Email',
+                              ),
+                              CloseButton(
+                                onPressed: () {
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ]),
+                        content: StatefulBuilder(builder: (context, setState) {
+                          return Container(
+                              height: 220,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    controller: emailController,
+                                    decoration: InputDecoration(
+                                      hintText: 'Email',
+                                    ),
+                                  ),
+                                  TextField(
+                                    controller: passwordController,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'Password',
+                                    ),
+                                  ),
+                                  SizedBox(height: 25),
+                                  ElevatedButton(
+                                      child: Text('Sign In'),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: primary,
+                                        // backgroundColor: primary,
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        await FirebaseAuth.instance
+                                            .signInWithEmailAndPassword(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text);
 
-              // ElevatedButton(
-              //     onPressed: () async {
-              //       await _googleSignIn.signOut();
-              //       setState(() {});
-              //     },
-              //     child: Text('Sign out from Google')),
+                                        emailController.clear();
+                                        passwordController.clear();
+                                        setState(() {});
+                                      }),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          titlePadding:
+                                              EdgeInsets.fromLTRB(35, 10, 5, 0),
+                                          title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Register With Email',
+                                                ),
+                                                CloseButton(
+                                                  onPressed: () {
+                                                    emailController.clear();
+                                                    passwordController.clear();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ]),
+                                          content: StatefulBuilder(
+                                              builder: (context, setState) {
+                                            return Container(
+                                                height: 220,
+                                                child: Column(
+                                                  children: [
+                                                    TextField(
+                                                      controller:
+                                                          nameController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: 'Name',
+                                                      ),
+                                                    ),
+                                                    TextField(
+                                                      controller:
+                                                          emailController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: 'Email',
+                                                      ),
+                                                    ),
+                                                    TextField(
+                                                      controller:
+                                                          passwordController,
+                                                      obscureText: true,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        hintText: 'Password',
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 25),
+                                                    ElevatedButton(
+                                                        child: Text('Register'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary: primary,
+                                                          // backgroundColor: primary,
+                                                        ),
+                                                        onPressed: () async {
+                                                          Navigator.pop(
+                                                              context);
+                                                          UserCredential
+                                                              result =
+                                                              await FirebaseAuth
+                                                                  .instance
+                                                                  .createUserWithEmailAndPassword(
+                                                                      email: emailController
+                                                                          .text,
+                                                                      password:
+                                                                          passwordController
+                                                                              .text);
+                                                          User? newUser =
+                                                              result.user;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'users')
+                                                              .doc(newUser?.uid)
+                                                              .set({
+                                                            'name':
+                                                                nameController
+                                                                    .text,
+                                                            'email':
+                                                                emailController
+                                                                    .text,
+                                                            'points': 0
+                                                          });
+                                                          await FirebaseAuth
+                                                              .instance
+                                                              .signInWithEmailAndPassword(
+                                                                  email:
+                                                                      emailController
+                                                                          .text,
+                                                                  password:
+                                                                      passwordController
+                                                                          .text);
+                                                          emailController
+                                                              .clear();
+                                                          passwordController
+                                                              .clear();
+                                                          setState(() {});
+                                                        }),
+                                                  ],
+                                                ));
+                                          }),
+                                        ),
+                                      );
+                                    },
+                                    style: TextButton.styleFrom(
+                                      primary: cBlack,
+                                      // backgroundColor: primary,
+                                    ),
+                                    child: Text('Don\'t have an account?'),
+                                  ),
+                                ],
+                              ));
+                        }),
+                      ),
+                    );
+                  },
+                  child: Text('Continue With Email'),
+                  style: TextButton.styleFrom(
+                    primary: cBeige,
+                    backgroundColor: primary,
+                  )),
+              SizedBox(height: 15),
+              Text('Or'),
+              SizedBox(height: 15),
+              SignInButton(Buttons.Google, text: 'Continue with Google',
+                  onPressed: () {
+                signInWithGoogle();
+              }),
+              SignInButton(Buttons.Apple, text: 'Continue with Apple',
+                  onPressed: () {
+                signInWithApple();
+              }),
+              // (Platform.isIOS)
+              //     ? SignInButton(Buttons.Apple, text: 'Continue with Apple',
+              //         onPressed: () {
+              //         signInWithApple();
+              //       })
+              //     : Container(
+              //         child: Text(''),
+              //       ),
+              // Text('Get Rewarded for Reuse', style: tagline),
+              //
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: [
+              //     // ElevatedButton(
+              //     //     child: Text('Sign Out'),
+              //     //     onPressed: () async {
+              //     //       await FirebaseAuth.instance.signOut();
+              //     //       setState(() {});
+              //     //     }),
+              //   ],
+              // ),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () async {
+              //         final newUser = await Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => RegisterScreen()));
+              //         setState(() {});
+              //         print('register pressed');
+              //       },
+              //       child: Text('Register'),
+              //       style: ElevatedButton.styleFrom(
+              //         primary: Colors.white,
+              //         onPrimary: Colors.black,
+              //         shadowColor: Colors.white,
+              //       ),
+              //     ),
+              //     // gUser == null
+              //     //     ? Text('Logged out from Google.')
+              //     //     : Text('Logged in with Google.'),
+              //   ],
+              // ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: signInWithApple,
-                child: Text('Sign in with Apple'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  final newUser = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RegisterScreen()));
-                  setState(() {});
-                  print('register pressed');
-                },
-                child: Text('Register'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
-                  shadowColor: Colors.white,
-                ),
-              ),
-              // gUser == null
-              //     ? Text('Logged out from Google.')
-              //     : Text('Logged in with Google.'),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

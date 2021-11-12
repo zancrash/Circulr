@@ -19,7 +19,7 @@ class _UserPointsState extends State<UserPoints> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 230,
+        height: 280,
         child: Column(
           children: [
             Text(
@@ -32,11 +32,14 @@ class _UserPointsState extends State<UserPoints> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 20),
-                  Text('100 Points - 10% Discount to G&F'),
+                  Text('100 Points - 10% Discount to G&F', style: body),
                   SizedBox(height: 10),
-                  Text('500 Points - \$10 coupon for PriZurv'),
+                  Text('500 Points - \$10 coupon for PriZurv', style: body),
                   SizedBox(height: 10),
-                  Text('10,000 Points - A romantic dinner date with Tyler'),
+                  Text('10,000 Points - A romantic dinner date with Tyler',
+                      style: body),
+                  SizedBox(height: 20),
+                  Text('To Redeem Points: email circulrshop@gmail.com.')
                 ],
               ),
             )

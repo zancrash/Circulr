@@ -8,7 +8,9 @@ import 'profile_screen.dart';
 import 'map_screen.dart';
 import 'returns_page.dart';
 import 'about_screen.dart';
+import 'PartneredBrands.dart';
 import 'package:circulr_app/styles.dart';
+import 'services/getUserEmail.dart';
 
 // import 'services/getPoints.dart';
 int _currentIndex = 0;
@@ -48,6 +50,8 @@ class _IndexScreenState extends State<IndexScreen> {
     ProfileScreen(),
   ];
 
+  // String? userEmail = getUserEmail();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +70,8 @@ class _IndexScreenState extends State<IndexScreen> {
                 decoration: BoxDecoration(
                   color: primary,
                 ),
-                child: Text('Header'),
+                // child:getUserEmail(),
+                child: Text(''),
               ),
               ListTile(
                   title: const Text('How it Works'),
@@ -76,6 +81,8 @@ class _IndexScreenState extends State<IndexScreen> {
                         builder: (BuildContext context) =>
                             const AboutScreen()));
                     print(user?.providerData[0].displayName);
+                    print(user?.providerData[0].email);
+
                     print(user?.uid);
                     print(user?.providerData);
                     // isNewUser();
@@ -85,7 +92,11 @@ class _IndexScreenState extends State<IndexScreen> {
               ListTile(
                   title: const Text('Our Brands'),
                   onTap: () {
+                    // Navigator.pop(context);
                     Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const PartneredBrands()));
                   }),
               ListTile(
                   title: const Text('Referals'),

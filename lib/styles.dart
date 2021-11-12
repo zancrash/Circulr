@@ -8,6 +8,9 @@ const cBeige = const Color(0xFFFFF5E7);
 
 const TextStyle appBarHeader = TextStyle(color: cBeige);
 
+const TextStyle tagline =
+    TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: secondary);
+
 const TextStyle header = TextStyle(fontSize: 35, fontWeight: FontWeight.w900);
 
 const TextStyle headerTwo =
