@@ -1,5 +1,7 @@
 // import 'package:circulr_app/screens/login_screen.dart';
 // import 'package:circulr_app/screens/register_screen.dart';
+import 'package:circulr_app/screens/FAQ.dart';
+import 'package:circulr_app/screens/HowItWorks.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,28 +68,29 @@ class _IndexScreenState extends State<IndexScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: primary,
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(color: primary),
+                accountName: (user?.providerData[0].displayName) == null
+                    ? Text('Circulr User')
+                    : Text('${user?.providerData[0].displayName}'),
+                accountEmail: Text('${user?.providerData[0].email}'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: (user?.providerData[0].photoURL) == null
+                      ? NetworkImage(
+                          'https://www.pinclipart.com/picdir/middle/157-1578186_user-profile-default-image-png-clipart.png')
+                      : NetworkImage('${user?.providerData[0].photoURL}'),
+                  // backgroundImage: Image.network('${user?.providerData[0].photoURL}'),
+                  backgroundColor: cBeige,
+                  // child: Text("xyz"),
                 ),
-                // child:getUserEmail(),
-                child: Text(''),
               ),
               ListTile(
-                  title: const Text('How it Works'),
+                  title: const Text('How It Works'),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            const AboutScreen()));
-                    print(user?.providerData[0].displayName);
-                    print(user?.providerData[0].email);
-
-                    print(user?.uid);
-                    print(user?.providerData);
-                    // isNewUser();
-                    // print(isNewUser());
-                    // getUserDoc();
+                            const HowItWorksScreen()));
                   }),
               ListTile(
                   title: const Text('Our Brands'),
@@ -99,14 +102,27 @@ class _IndexScreenState extends State<IndexScreen> {
                             const PartneredBrands()));
                   }),
               ListTile(
-                  title: const Text('Referals'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  }),
-              ListTile(
                   title: const Text('FAQ'),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const FAQScreen()));
+                  }),
+              ListTile(
+                  title: const Text('About'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const AboutScreen()));
+                    // print(user?.providerData[0].displayName);
+                    // print(user?.providerData[0].email);
+
+                    // print(user?.uid);
+                    // print(user?.providerData);
+                    // isNewUser();
+                    // print(isNewUser());
+                    // getUserDoc();
                   }),
               Container(
                 width: 200,

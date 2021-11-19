@@ -22,6 +22,9 @@ const TextStyle headerTwoWhite =
 const TextStyle headerThree =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBeige);
 
+const TextStyle faq =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBlue);
+
 const TextStyle body = TextStyle(fontSize: 15, color: cBlack);
 
 const TextStyle purchaseButton = TextStyle(
