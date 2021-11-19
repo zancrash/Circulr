@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:circulr_app/styles.dart';
 
-class GetPoints extends StatelessWidget {
+class GetUserEmail extends StatelessWidget {
   // final String documentId;
 
   // GetPoints(this.documentId);
@@ -30,28 +30,28 @@ class GetPoints extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-          return Text(data['points'].toString(), style: userPoints);
+          return Text(data['name'].toString(), style: headerThree);
         }
 
-        return CircularProgressIndicator();
-        // return Text("loading");
+        // return CircularProgressIndicator();
+        return Text("loading");
       },
     );
   }
 }
 
-Future<String?> getUserEmail() async {
-  User? user = FirebaseAuth.instance.currentUser;
+// Future<String?> getUserEmail() async {
+//   User? user = FirebaseAuth.instance.currentUser;
 
-  DocumentReference documentReference =
-      FirebaseFirestore.instance.collection('users').doc(user?.uid);
+//   DocumentReference documentReference =
+//       FirebaseFirestore.instance.collection('users').doc(user?.uid);
 
-  String? userEmail;
-  userEmail = user?.providerData[0].email;
-  // await documentReference.get().then((snapshot) {
-  //   userEmail = user?.providerData[0].email;
-  //   print(userEmail);
-  // });
+//   String? userEmail;
+//   userEmail = user?.providerData[0].email;
+//   // await documentReference.get().then((snapshot) {
+//   //   userEmail = user?.providerData[0].email;
+//   //   print(userEmail);
+//   // });
 
-  return userEmail;
-}
+//   return userEmail;
+// }

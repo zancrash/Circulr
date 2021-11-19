@@ -6,6 +6,7 @@ import 'package:circulr_app/styles.dart';
 import '../services/getInvoiceCount.dart';
 import '../services/addPoints.dart';
 import '../services/getPurchaseCount.dart';
+import '../services/checkOverdueItems.dart';
 import 'AddItemPurchase.dart';
 import 'ReturnItemPurchase.dart';
 
@@ -130,6 +131,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
               color: primary,
               child: InkWell(
                 onTap: () async {
+                  checkOverdueItems();
                   if (await getInvoiceCount() != 0) {
                     invoicesAlert();
                   } else {

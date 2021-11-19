@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:async';
 
+import '../services/checkOverdueItems.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,6 +92,24 @@ class _UserInvoicesState extends State<UserInvoices> {
       .collection('invoices')
       .snapshots();
 
+  void timeTest() async {
+    print('test');
+  }
+
+  Timer? timer;
+  @override
+  void initState() {
+    super.initState();
+    timer =
+        Timer.periodic(Duration(seconds: 30), (Timer t) => checkOverdueItems());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Container();
@@ -101,7 +121,7 @@ class _UserInvoicesState extends State<UserInvoices> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            print('loading');
+            // print('loading');
             return Center(
               child: CircularProgressIndicator(),
             );

@@ -13,6 +13,7 @@ import 'about_screen.dart';
 import 'PartneredBrands.dart';
 import 'package:circulr_app/styles.dart';
 import 'services/getUserEmail.dart';
+import 'services/getPoints.dart';
 
 // import 'services/getPoints.dart';
 int _currentIndex = 0;
@@ -70,9 +71,10 @@ class _IndexScreenState extends State<IndexScreen> {
             children: [
               UserAccountsDrawerHeader(
                 decoration: BoxDecoration(color: primary),
-                accountName: (user?.providerData[0].displayName) == null
-                    ? Text('Circulr User')
-                    : Text('${user?.providerData[0].displayName}'),
+                accountName: GetUserEmail(),
+                // accountName: (user?.providerData[0].displayName) == null
+                //     ? Text('Circulr User')
+                //     : Text('${user?.providerData[0].displayName}'),
                 accountEmail: Text('${user?.providerData[0].email}'),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: (user?.providerData[0].photoURL) == null

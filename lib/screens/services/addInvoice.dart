@@ -12,9 +12,9 @@ addInvoice(String brand, int qty, DateTime date) async {
       _firestore.collection('users').doc(user?.uid).collection('invoices');
 
   print('adding to invoices');
-  // bool exists = checkInvoiceExists(date) as bool;
+  // check to see if invoice for item has already been issued
   bool exists = await checkInvoiceExists(date);
-  print(exists);
+  // print(exists);
 
   if (exists == false) {
     ref.add({

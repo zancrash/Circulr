@@ -48,19 +48,7 @@ class _UserItemsState extends State<UserItems> {
     return (to.difference(from).inHours / 24).round();
   }
 
-  Future<void> updateUser() {
-    User? user = FirebaseAuth.instance.currentUser;
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-    return users
-        .doc(user?.uid)
-        // .update({'past_due': true})
-        .update({'overdue_items': overdueCount})
-        // .update({'overdue_items': FieldValue.increment(1)})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
-
-  // Update user overdue items count:
+  // Get number of overdue items from user:
   int overdueCount = 0; // varialbe to store number of overdue items
   void userPastDue() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -77,41 +65,14 @@ class _UserItemsState extends State<UserItems> {
         .where('date', isLessThanOrEqualTo: x)
         .get();
     result.docs.forEach((res) {
-      addInvoice(
-          res.data()['brand'], res.data()['qty'], res.data()['date'].toDate());
+      addInvoice(res.data()['brand'], res.data()['qty'],
+          res.data()['date'].toDate()); // issue invoice for each overdue item
       itemCount +=
           1; // for each item more than 30 days old, increment item count variable
     });
     print(itemCount);
     print('userPastDue executed.');
     overdueCount = itemCount;
-  }
-
-  // Run function to decrement user's overdue items count
-  Future<void> userReturnLate() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    DateTime x = DateTime.now().subtract(Duration(days: 30));
-
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-    return users
-        .doc(user?.uid)
-        .update({'overdue_items': FieldValue.increment(-1)});
-  }
-
-  // function to get user's overdue count
-  Future<int> getOverdues() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    int overdueCount = 0;
-
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection('users').doc(user?.uid);
-
-    await docRef.get().then((snapshot) {
-      overdueCount = snapshot['overdue_items'];
-    });
-
-    return overdueCount;
   }
 
   Future<void> quickReturn() async {

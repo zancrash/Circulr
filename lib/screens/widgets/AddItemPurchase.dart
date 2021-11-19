@@ -221,7 +221,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            print('loading');
+            // print('loading');
             return Center(
               child: CircularProgressIndicator(),
             );
