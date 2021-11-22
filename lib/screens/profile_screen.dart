@@ -25,6 +25,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
               title: Text(
                 'Profile',
                 style: appBarHeader,

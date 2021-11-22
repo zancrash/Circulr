@@ -26,6 +26,10 @@ class _MapScreenState extends State<MapScreen> {
     );
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),
         title: Text(
           'Collection Centres',
           style: appBarHeader,

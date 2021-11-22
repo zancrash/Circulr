@@ -1,5 +1,3 @@
-// import 'package:circulr_app/screens/login_screen.dart';
-// import 'package:circulr_app/screens/register_screen.dart';
 import 'package:circulr_app/screens/FAQ.dart';
 import 'package:circulr_app/screens/HowItWorks.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +11,7 @@ import 'about_screen.dart';
 import 'PartneredBrands.dart';
 import 'package:circulr_app/styles.dart';
 import 'services/getUserEmail.dart';
-import 'services/getPoints.dart';
 
-// import 'services/getPoints.dart';
 int _currentIndex = 0;
 
 class IndexScreen extends StatefulWidget {
@@ -52,8 +48,6 @@ class _IndexScreenState extends State<IndexScreen> {
     ReturnsPage(),
     ProfileScreen(),
   ];
-
-  // String? userEmail = getUserEmail();
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +121,7 @@ class _IndexScreenState extends State<IndexScreen> {
                     // getUserDoc();
                   }),
               Container(
-                width: 200,
+                width: 50,
                 child: ElevatedButton(
                     child: Text('Sign Out'),
                     style: TextButton.styleFrom(
