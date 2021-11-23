@@ -21,6 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //   body: ProfileView(),
     // );
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
           length: 2,
           child: Scaffold(
