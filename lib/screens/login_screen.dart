@@ -366,18 +366,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                 signInWithGoogle();
               }),
-              SignInButton(Buttons.Apple, text: 'Continue with Apple',
-                  onPressed: () {
-                signInWithApple();
-              }),
-              // (Platform.isIOS)
-              //     ? SignInButton(Buttons.Apple, text: 'Continue with Apple',
-              //         onPressed: () {
-              //         signInWithApple();
-              //       })
-              //     : Container(
-              //         child: Text(''),
-              //       ),
+              // SignInButton(Buttons.Apple, text: 'Continue with Apple',
+              //     onPressed: () {
+              //   signInWithApple();
+              // }),
+              (Platform.isIOS)
+                  ? SignInButton(Buttons.Apple, text: 'Continue with Apple',
+                      onPressed: () {
+                      signInWithApple();
+                    })
+                  : SizedBox(height: 5),
+
               // Text('Get Rewarded for Reuse', style: tagline),
               //
               // Row(
