@@ -45,6 +45,8 @@ android {
         applicationId "com.circulrshop.circulr_app"
         minSdkVersion 29
         targetSdkVersion 31
+        // versionCode 1.2 // Change to a higher number
+        // versionName "1.2" // Change to a higher number
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
