@@ -35,9 +35,9 @@ class _UserPointsState extends State<UserPoints> {
                   Text('100 Points - 10% Discount to G&F', style: body),
                   SizedBox(height: 10),
                   Text('500 Points - \$10 coupon for PriZurv', style: body),
-                  SizedBox(height: 10),
-                  Text('10,000 Points - A romantic dinner date with Tyler',
-                      style: body),
+                  // SizedBox(height: 10),
+                  // Text('10,000 Points - A romantic dinner date with Tyler',
+                  //     style: body),
                   SizedBox(height: 20),
                   Text('To Redeem Points: email circulrshop@gmail.com.')
                 ],

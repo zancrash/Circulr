@@ -15,9 +15,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        // height: MediaQuery.of(context).size.height * 1,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),
+        title: Text(
+          'Home',
+          style: appBarHeader,
+        ),
+        backgroundColor: primary,
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height * 1,
         color: cBeige,
         child: SingleChildScrollView(
           child: Column(
@@ -25,12 +36,15 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               // Welcome Banner
               Container(
-                // height: MediaQuery.of(context).size.height * 0.25,
+                height: MediaQuery.of(context).size.height * 0.17,
                 color: cBeige,
                 // width: MediaQuery.of(context).size.width * 1,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, MediaQuery.of(context).size.height * 0.07, 0, 0),
+                      0,
+                      MediaQuery.of(context).size.height * 0.02,
+                      0,
+                      MediaQuery.of(context).size.height * 0.02),
                   child: Center(
                     child: Text(
                       'Welcome to the \n Circulr Economy',
@@ -43,23 +57,26 @@ class _HomeScreenState extends State<HomeScreen> {
               // Process Section
               Container(
                 color: primary,
-                width: MediaQuery.of(context).size.width * 1,
+                // width: MediaQuery.of(context).size.width * 1,
                 // height: MediaQuery.of(context).size.height * 0.6,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            0,
-                            MediaQuery.of(context).size.height * 0.02,
-                            0,
-                            MediaQuery.of(context).size.height * 0.02),
-                        child: Text(
-                          'The Process',
-                          style: headerTwoWhite,
-                        ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.04,
                       ),
+                      // Padding(
+                      //   padding: EdgeInsets.fromLTRB(
+                      //       0,
+                      //       MediaQuery.of(context).size.height * 0.02,
+                      //       0,
+                      //       MediaQuery.of(context).size.height * 0.02),
+                      //   child: Text(
+                      //     'The Process',
+                      //     style: headerTwoWhite,
+                      //   ),
+                      // ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(
                             0, 0, 0, MediaQuery.of(context).size.height * 0.03),
