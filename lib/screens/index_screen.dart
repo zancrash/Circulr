@@ -10,7 +10,7 @@ import 'returns_page.dart';
 import 'about_screen.dart';
 import 'PartneredBrands.dart';
 import 'package:circulr_app/styles.dart';
-import 'services/getUserEmail.dart';
+import 'services/getName.dart';
 
 int _currentIndex = 0;
 
@@ -65,7 +65,8 @@ class _IndexScreenState extends State<IndexScreen> {
             children: [
               UserAccountsDrawerHeader(
                 decoration: BoxDecoration(color: primary),
-                accountName: GetUserEmail(),
+                // accountName: Text('Circulr User'),
+                accountName: GetName(),
                 // accountName: (user?.providerData[0].displayName) == null
                 //     ? Text('Circulr User')
                 //     : Text('${user?.providerData[0].displayName}'),

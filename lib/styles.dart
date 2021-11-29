@@ -11,7 +11,8 @@ const TextStyle appBarHeader = TextStyle(color: cBeige);
 const TextStyle tagline =
     TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: secondary);
 
-const TextStyle header = TextStyle(fontSize: 35, fontWeight: FontWeight.w900);
+const TextStyle header =
+    TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBeige);
 
 const TextStyle headerTwo =
     TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBlue);
@@ -20,6 +21,9 @@ const TextStyle headerTwoWhite =
     TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBeige);
 
 const TextStyle headerThree =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: primary);
+
+const TextStyle name =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBeige);
 
 const TextStyle faq =

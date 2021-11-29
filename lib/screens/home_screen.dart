@@ -29,27 +29,31 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height * 1,
-        color: cBeige,
+        color: primary,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               // Welcome Banner
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                    0,
-                    MediaQuery.of(context).size.height * 0.02,
-                    0,
-                    MediaQuery.of(context).size.height * 0.02),
-                child: Text(
-                  'Welcome to the \n Circulr Economy',
-                  style: header,
-                  textAlign: TextAlign.center,
+              Container(
+                color: primary,
+                width: MediaQuery.of(context).size.height * 1,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0,
+                      MediaQuery.of(context).size.height * 0.02,
+                      0,
+                      MediaQuery.of(context).size.height * 0.02),
+                  child: Text(
+                    'Welcome to the \n Circulr Economy',
+                    style: header,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               // Process Section
               Container(
-                color: primary,
+                color: cBeige,
                 // width: MediaQuery.of(context).size.width * 1,
                 // height: MediaQuery.of(context).size.height * 0.55,
                 child: Column(
@@ -91,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
                                     child: Text(
-                                      'Circulr is partnered with amazing brands and retailers to help them reuse their packaging.',
+                                      'Circulr will allow you to track any item purchased from one of our amazing partnered businesses.',
                                       style: body,
                                     ),
                                   ),
@@ -172,43 +176,45 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                          // SizedBox(
-                          //     height: MediaQuery.of(context).size.height * 0.045),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.030),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          const PartneredBrands()));
+                                },
+                                child: Text('Partnered Brands'),
+                                style: TextButton.styleFrom(
+                                    primary: cBeige, backgroundColor: primary),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          const CollectionLocations()));
+                                },
+                                child: Text('Our Collection Sites'),
+                                style: TextButton.styleFrom(
+                                    primary: cBeige, backgroundColor: cBlue),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Center(
-                heightFactor: 1.5,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const PartneredBrands()));
-                      },
-                      child: Text('Partnered Brands'),
-                      style: TextButton.styleFrom(
-                          primary: cBeige, backgroundColor: primary),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const CollectionLocations()));
-                      },
-                      child: Text('Our Collection Sites'),
-                      style: TextButton.styleFrom(
-                          primary: cBeige, backgroundColor: cBlue),
-                    ),
-                  ],
-                ),
-              ),
+              // Center(
+              //   heightFactor: 1.5,
+              //   child:
+              // ),
             ],
           ),
         ),

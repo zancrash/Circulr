@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:circulr_app/styles.dart';
 
-class GetUserEmail extends StatelessWidget {
+class GetName extends StatelessWidget {
   // final String documentId;
 
   // GetPoints(this.documentId);
@@ -30,7 +30,13 @@ class GetUserEmail extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-          return Text(data['name'].toString(), style: headerThree);
+          if (data['name'].toString() == 'null') {
+            // return Text('Circulr User', style: name);
+            return Text(data['email'].substring(0, data['email'].indexOf('@')),
+                style: name);
+          } else {
+            return Text(data['name'].toString(), style: name);
+          }
         }
 
         // return CircularProgressIndicator();

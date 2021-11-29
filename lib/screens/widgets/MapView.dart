@@ -4,6 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:circulr_app/styles.dart';
 
+bool locationAlertIssued = false;
+
 class MapView extends StatefulWidget {
   const MapView({Key? key}) : super(key: key);
 
@@ -61,9 +63,9 @@ class _MapViewState extends State<MapView> {
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Location permissions are permanently denied.'),
+        content: Text('Location permissions denied.'),
       ));
-      return Future.error('Location permissions are permanently denied.');
+      return Future.error('Location permissions denied.');
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -263,6 +265,33 @@ class _MapViewState extends State<MapView> {
   //   });
   // }
 
+  Future<void> locationAlert() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Circulr is Requesting Your Location Info'),
+              content: Text(
+                  'Circulr uses your location information to help you show the collection bins closest to you, even when the app is closed or not in use. \n\nIt is not mandatory to share your location info to view the map.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'Deny');
+                    locationAlertIssued = true;
+                  },
+                  child: const Text('Deny'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'Accept');
+                    locatePosition();
+                    locationAlertIssued = true;
+                  },
+                  child: const Text('Accept'),
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -275,7 +304,9 @@ class _MapViewState extends State<MapView> {
         // onMapCreated: (controller) => _googleMapController = controller,
         onMapCreated: (controller) async {
           _googleMapController = controller;
-          locatePosition();
+          // locatePosition();
+          (!locationAlertIssued) ? locationAlert() : locatePosition();
+          // locationAlert();
         },
 
         markers: getmarkers(), //markers to show on map
