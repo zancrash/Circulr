@@ -39,3 +39,6 @@ const TextStyle purchaseButton = TextStyle(
 
 const TextStyle userPoints =
     TextStyle(fontSize: 80, fontWeight: FontWeight.w900, color: primary);
+
+const TextStyle smallTile =
+    TextStyle(fontSize: 15, fontWeight: FontWeight.w400);

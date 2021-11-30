@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:circulr_app/styles.dart';
@@ -20,7 +19,6 @@ class _MapViewState extends State<MapView> {
   );
 
   late GoogleMapController _googleMapController;
-
   Position? currentPosition;
   var geoLocator = Geolocator();
 
@@ -280,7 +278,7 @@ class _MapViewState extends State<MapView> {
                   },
                   child: const Text('Deny'),
                 ),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.pop(context, 'Accept');
                     locatePosition();
@@ -316,6 +314,9 @@ class _MapViewState extends State<MapView> {
           child: FloatingActionButton(
             backgroundColor: primary,
             foregroundColor: cBeige,
+            // onPressed: () {
+            //   openMap(43.5890, -79.6441);
+            // },
             onPressed: () => _googleMapController.animateCamera(
               CameraUpdate.newCameraPosition(_initialCameraPosition),
             ),
