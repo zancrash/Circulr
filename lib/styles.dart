@@ -23,6 +23,9 @@ const TextStyle headerTwoWhite =
 const TextStyle headerThree =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: primary);
 
+const TextStyle headerThreeBlue =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBlue);
+
 const TextStyle name =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBeige);
 

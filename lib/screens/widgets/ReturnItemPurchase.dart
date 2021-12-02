@@ -13,6 +13,7 @@ import 'PurchasedItemsNoDeposit.dart';
 import '../services/addGenericReturn.dart';
 import '../services/getPurchaseCount.dart';
 import 'PurchaseForm.dart';
+import 'package:circulr_app/styles.dart';
 
 class ReturnItemPurchase extends StatefulWidget {
   const ReturnItemPurchase({Key? key}) : super(key: key);
@@ -36,23 +37,65 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
   Future<void> quickReturn() async {
     showDialog(
         context: context,
-        builder: (context) {
-          return Dialog(
-              child: Container(
-            child: PurchasedItems(),
-          ));
-        });
+        builder: (BuildContext context) => AlertDialog(
+              // title: const Text('Select Return Type'),
+              titlePadding: EdgeInsets.fromLTRB(35, 10, 5, 0),
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Returning Item'),
+                    CloseButton(
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ]),
+
+              content: Container(
+                width: double.minPositive,
+                child: PurchasedItems(),
+              ),
+            ));
+
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return Dialog(
+    //           child: Container(
+    //         child: PurchasedItems(),
+    //       ));
+    //     });
   }
 
   Future<void> returnBrandedJar() async {
     showDialog(
         context: context,
-        builder: (context) {
-          return Dialog(
-              child: Container(
-            child: PurchasedItemsNoDeposit(),
-          ));
-        });
+        builder: (BuildContext context) => AlertDialog(
+              // title: const Text('Select Return Type'),
+              titlePadding: EdgeInsets.fromLTRB(35, 10, 5, 0),
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Returning Branded Jar',
+                    ),
+                    CloseButton(
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ]),
+
+              content: Container(
+                width: double.minPositive,
+                child: PurchasedItemsNoDeposit(),
+              ),
+            ));
+
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return Dialog(
+    //           child: Container(
+    //         child: PurchasedItemsNoDeposit(),
+    //       ));
+    //     });
   }
 
   Future<void> genericReturnDialog() async {
@@ -130,17 +173,16 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
+                  child: const Text('Cancel', style: TextStyle(color: cBlue)),
                 ),
-                ElevatedButton(
+                TextButton(
                     onPressed: () {
                       addGenericReturn(returnQty, selectedLoc);
                       Navigator.pop(context, 'Submit');
                     },
                     child: const Text('Submit'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                    )),
+                    style: TextButton.styleFrom(
+                        primary: cBeige, backgroundColor: primary)),
               ],
             ));
   }

@@ -148,7 +148,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
               ),
             ),
             Card(
-              color: cBlue,
+              color: secondary,
               child: InkWell(
                 onTap: () async {
                   purchaseCount = await getPurchaseCount();

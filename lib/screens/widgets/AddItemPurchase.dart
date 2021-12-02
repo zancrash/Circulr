@@ -8,6 +8,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import '../services/getInvoiceCount.dart';
 import '../services/addPoints.dart';
+import 'package:circulr_app/styles.dart';
 
 class AddItemPurchase extends StatefulWidget {
   const AddItemPurchase({Key? key}) : super(key: key);
@@ -96,9 +97,14 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         content:
             const Text('Item has been successfully added to your account.'),
         actions: <Widget>[
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, 'Done'),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, 'Done');
+              Navigator.pop(context);
+            },
             child: const Text('Done'),
+            style:
+                TextButton.styleFrom(primary: cBeige, backgroundColor: cBlue),
           ),
         ],
       ),
@@ -116,7 +122,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
+            child: const Text('Cancel', style: TextStyle(color: cBlue)),
           ),
           TextButton(
             onPressed: () {
@@ -125,6 +131,8 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
               purchaseSuccess();
             },
             child: const Text('Add'),
+            style:
+                TextButton.styleFrom(primary: cBeige, backgroundColor: primary),
           ),
         ],
       ),
@@ -188,7 +196,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
             onPressed: () => Navigator.pop(context, 'Cancel'),
             child: Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () async {
               Navigator.pop(context, 'Add Purchase');
               if (purchaseType == 'direct') {
@@ -202,6 +210,8 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
               }
             },
             child: const Text('Add Purchase'),
+            style:
+                TextButton.styleFrom(primary: cBeige, backgroundColor: primary),
           ),
         ],
       ),

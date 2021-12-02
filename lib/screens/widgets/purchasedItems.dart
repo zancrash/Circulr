@@ -5,6 +5,7 @@ import 'package:flutter_spinbox/material.dart';
 import '../services/addReturned.dart';
 import '../services/deleteItem.dart';
 import '../services/addPoints.dart';
+import 'package:circulr_app/styles.dart';
 
 class PurchasedItems extends StatefulWidget {
   const PurchasedItems({Key? key}) : super(key: key);
@@ -90,16 +91,45 @@ class _PurchasedItemsState extends State<PurchasedItems> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              addReturned(selectedItem, returnQty);
-              deleteItem(itemId);
-              addPoints(3);
-              Navigator.pop(context, 'Done');
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Item Return Successful!'),
-              ));
-              Navigator.pop(context);
+              Navigator.pop(context, 'Cancel');
             },
-            child: const Text('Done'),
+            child: const Text('Cancel', style: TextStyle(color: cBlue)),
+          ),
+          TextButton(
+            onPressed: () {
+              addReturned(
+                  selectedItem, returnQty); // add item to user's returned items
+              deleteItem(itemId); // delete item from user's purchased items
+              addPoints(3); // increment user's points by 3
+              Navigator.pop(context, 'Complete Return');
+              // Return successful dialog
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Return Complete'),
+                  content: const Text('Item has been successfully returned!'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, 'Done');
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Done'),
+                      style: TextButton.styleFrom(
+                          primary: cBeige, backgroundColor: cBlue),
+                    ),
+                  ],
+                ),
+              );
+
+              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //   content: Text('Item Return Successful!'),
+              // ));
+              // Navigator.pop(context);
+            },
+            child: const Text('Complete Return'),
+            style:
+                TextButton.styleFrom(primary: cBeige, backgroundColor: primary),
           ),
         ],
       ),

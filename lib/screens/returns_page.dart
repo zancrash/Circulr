@@ -51,7 +51,50 @@ class _ReturnsPageState extends State<ReturnsPage> {
               ),
               backgroundColor: primary,
             ),
-            body: PurchaseForm(),
+            body: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Deposits'),
+                          content: Container(
+                            height: 300,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Reverse Deposits', style: headerThree),
+                                Text(
+                                    '\nYou will be invoiced only if an item you purchased is not marked as returned after a certain amount of time.'),
+                                Text('\nDirect Deposits', style: headerThree),
+                                Text(
+                                    '\nSome items require an upfront payment to add it to your purchased items.\n\nThis deposit will be refunded once the item is returned')
+                              ],
+                            ),
+                          ),
+                          // content: const Text(
+                          //     'Item has been successfully returned!'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Done');
+                              },
+                              child: const Text('Done'),
+                              style: TextButton.styleFrom(
+                                  primary: cBeige, backgroundColor: cBlue),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Text('How Deposits Work'),
+                    style: TextButton.styleFrom(
+                        primary: cBeige, backgroundColor: cBlue),
+                  ),
+                  PurchaseForm(),
+                ]),
             backgroundColor: cBeige,
           )),
     );
