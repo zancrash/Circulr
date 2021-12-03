@@ -38,17 +38,40 @@ class _BrandListState extends State<BrandList> {
                     document.data()! as Map<String, dynamic>;
                 return Card(
                   // color: cBeige,
-                  child: ListTile(
-                      title: Text(data['name']),
-                      subtitle: Text('Item Type: ' + data['item_type']),
-                      onTap: () async {
-                        // DateTime returnDate = DateTime.now();
+                  child: ExpansionTile(
+                    title: Text(data['name']),
+                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                    expandedAlignment: Alignment.topLeft,
+                    // subtitle: Text(data['address']),
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          SizedBox(width: 15),
+                          Text('Item Type: ' + data['item_type']),
+                        ],
+                      ),
+                      SizedBox(height: 3),
+                      Row(
+                        children: [
+                          SizedBox(width: 15),
+                          Text('Deposit Type: ' + data['deposit type'])
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
 
-                        // print('Selected: ' +
-                        //     data['name'] +
-                        //     ' ' +
-                        //     data['address'].toString());
-                      }),
+                  // child: ListTile(
+                  //     title: Text(data['name']),
+                  //     subtitle: Text('Item Type: ' + data['item_type']),
+                  //     onTap: () async {
+                  //       // DateTime returnDate = DateTime.now();
+
+                  //       // print('Selected: ' +
+                  //       //     data['name'] +
+                  //       //     ' ' +
+                  //       //     data['address'].toString());
+                  //     }),
                 );
               }).toList(),
             ),

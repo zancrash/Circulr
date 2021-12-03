@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height * 1,
-        color: primary,
+        color: cBeige,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

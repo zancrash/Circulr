@@ -12,7 +12,8 @@ const stripe = require('stripe')(functions.config().stripe.testkey);
 exports.stripePayment = functions.https.onRequest(async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: 2000,
+        // amount: 2000,
+        amount: parseInt(req.body.amount),
         currency: 'cad',
         payment_method_types: ['card'],
     },

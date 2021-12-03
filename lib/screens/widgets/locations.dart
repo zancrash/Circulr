@@ -60,28 +60,8 @@ class _LocationsState extends State<Locations> {
                           ),
                         ],
                       )
-                      // ListTile(
-                      //   onTap: () {
-                      //     openMap(data['address'].toString());
-                      //   },
-                      //   title: Text('View in Maps', style: smallTile),
-                      // ),
-
-                      // ListTile(title: Text('This is tile number 1')),
                     ],
                   ),
-
-                  // child: ListTile(
-                  //     title: Text(data['name']),
-                  //     subtitle: Text(data['address']),
-                  //     onTap: () async {
-                  //       // DateTime returnDate = DateTime.now();
-                  //       openMap(data['address'].toString());
-                  //       print('Selected: ' +
-                  //           data['name'] +
-                  //           ' ' +
-                  //           data['address'].toString());
-                  //     }),
                 );
               }).toList(),
             ),

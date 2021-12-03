@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,6 +28,52 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
   int purchaseQty = 1;
 
   Map<String, dynamic>? paymentIntentData;
+
+  Future<void> initPaymentSheet(context, {required int amount}) async {
+    try {
+      // 1. create payment intent on the server
+      final response = await http.post(
+          Uri.parse(
+              'https://us-central1-circulr-fb9b9.cloudfunctions.net/stripePayment'),
+          body: {
+            'amount': amount.toString(),
+          });
+
+      final jsonResponse = jsonDecode(response.body);
+      log(jsonResponse.toString());
+
+      //2. initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: jsonResponse['paymentIntent'],
+          merchantDisplayName: 'Flutter Stripe Store Demo',
+          customerId: jsonResponse['customer'],
+          customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
+          style: ThemeMode.light,
+          testEnv: true,
+          merchantCountryCode: 'SG',
+        ),
+      );
+
+      await Stripe.instance.presentPaymentSheet();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Payment completed!')),
+      );
+    } catch (e) {
+      if (e is StripeException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    }
+  }
 
   // move to services file in production...
   Future<void> makePayment() async {
@@ -79,8 +126,9 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                     onPressed: () => Navigator.pop(context, 'Cancel'),
                     child: Text('Cancel')),
                 TextButton(
-                    onPressed: () {
-                      makePayment();
+                    onPressed: () async {
+                      // makePayment();
+                      await initPaymentSheet(context, amount: 3000);
                       Navigator.pop(context, 'OK');
                     },
                     child: Text('OK')),
@@ -267,7 +315,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                   document.data()! as Map<String, dynamic>;
               return ListTile(
                   title: Text(data['name']),
-                  subtitle: Text(data['item_type']),
+                  subtitle: Text('Deposit Type: ' + data['deposit type']),
                   onTap: () async {
                     // If user has unpaid invoices...
 

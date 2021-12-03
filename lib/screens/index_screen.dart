@@ -145,22 +145,28 @@ class _IndexScreenState extends State<IndexScreen> {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home_outlined,
+            ),
             title: Text('Home'),
             // backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map_sharp),
+            icon: Icon(Icons.place_outlined),
             title: Text('Collection Centres'),
             // backgroundColor: Colors.pink,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.refresh),
+            icon: Icon(
+              Icons.shopping_bag_outlined,
+            ),
             title: Text('Returns'),
             // backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(
+              Icons.account_circle_outlined,
+            ),
             title: Text('Profile and Points'),
             // backgroundColor: Colors.red,
           ),
