@@ -61,9 +61,11 @@ class _PurchaseFormState extends State<PurchaseForm> {
               content: Text(
                   'Please pay any outstanding invoices to add more purchases.'),
               actions: <Widget>[
-                ElevatedButton(
+                TextButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child: const Text('OK'),
+                  style: TextButton.styleFrom(
+                      primary: cBeige, backgroundColor: cBlue),
                 ),
               ],
             ));

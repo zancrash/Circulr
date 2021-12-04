@@ -65,8 +65,11 @@ class _UserItemsState extends State<UserItems> {
         .where('date', isLessThanOrEqualTo: x)
         .get();
     result.docs.forEach((res) {
-      addInvoice(res.data()['brand'], res.data()['qty'],
-          res.data()['date'].toDate()); // issue invoice for each overdue item
+      addInvoice(
+          res.data()['brand'],
+          res.data()['qty'],
+          res.data()['date'].toDate(),
+          res.data()['total']); // issue invoice for each overdue item
       itemCount +=
           1; // for each item more than 30 days old, increment item count variable
     });

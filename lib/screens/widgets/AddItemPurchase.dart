@@ -26,10 +26,13 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
   String purchaseType = '';
   late int itemQty;
   int purchaseQty = 1;
+  late int unitPrice;
+  late int totalAmount;
 
-  Map<String, dynamic>? paymentIntentData;
+  // Map<String, dynamic>? paymentIntentData;
 
   Future<void> initPaymentSheet(context, {required int amount}) async {
+    // Navigator.pop(context);
     try {
       // 1. create payment intent on the server
       final response = await http.post(
@@ -57,11 +60,15 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
 
       await Stripe.instance.presentPaymentSheet();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Payment completed!')),
-      );
+      addPurchase();
+      purchaseSuccess();
+
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Payment completed!')),
+      // );
     } catch (e) {
       if (e is StripeException) {
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error from Stripe: ${e.error.localizedMessage}'),
@@ -72,45 +79,6 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
           SnackBar(content: Text('Error: $e')),
         );
       }
-    }
-  }
-
-  // move to services file in production...
-  Future<void> makePayment() async {
-    final url = Uri.parse(
-        'https://us-central1-circulr-fb9b9.cloudfunctions.net/stripePayment');
-
-    final response =
-        await http.get(url, headers: {'Content-Type': 'application/json'});
-
-    paymentIntentData = json.decode(response.body);
-
-    await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntentData!['paymentIntent'],
-            // applePay: true,
-            // googlePay: true,
-            // confirmPayment: true,
-            style: ThemeMode.dark,
-            merchantCountryCode: 'CA',
-            merchantDisplayName: 'Circulr'));
-    setState(() {});
-
-    displayPaymentSheet();
-  }
-
-  Future<void> displayPaymentSheet() async {
-    try {
-      await Stripe.instance.presentPaymentSheet();
-      setState(() {
-        paymentIntentData = null;
-      });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Deposit Successful')));
-      addPurchase();
-      purchaseSuccess();
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -128,7 +96,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                 TextButton(
                     onPressed: () async {
                       // makePayment();
-                      await initPaymentSheet(context, amount: 3000);
+                      await initPaymentSheet(context, amount: totalAmount);
                       Navigator.pop(context, 'OK');
                     },
                     child: Text('OK')),
@@ -193,7 +161,6 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
 
     User? user = FirebaseAuth.instance.currentUser;
     DateTime now = new DateTime.now();
-    DateTime date = new DateTime(now.year, now.month, now.day);
     DateTime dueDate = DateTime.now().add(Duration(days: 30));
 
     bool pastdue = false;
@@ -210,6 +177,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
     return ref.add({
       'brand': selectedBrand,
       'qty': purchaseQty,
+      'total': totalAmount,
       'deposit type': purchaseType,
       'date': now,
       'due': dueDate,
@@ -234,6 +202,8 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                     onChanged: (value) {
                       purchaseQty = value.toInt();
                       print(value);
+                      totalAmount = purchaseQty * unitPrice;
+                      print('total: \$\ $totalAmount/100');
                     },
                   ),
                 ],
@@ -317,16 +287,15 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                   title: Text(data['name']),
                   subtitle: Text('Deposit Type: ' + data['deposit type']),
                   onTap: () async {
-                    // If user has unpaid invoices...
-
+                    unitPrice = data['unit price'].toInt();
                     purchaseType = data['deposit type'];
                     selectedBrand = data['name'];
                     itemId = document.id;
-                    print(purchaseType);
-                    // Navigator.pop(context); // causes error
-                    // depositAlert();
+                    totalAmount =
+                        unitPrice; // initialize total amount to item's unit price
+                    print('purchase type: $purchaseType');
+                    print('unit price: $unitPrice');
                     addItemDialog();
-                    // DateTime returnDate = DateTime.now();
                   });
             }).toList(),
           );

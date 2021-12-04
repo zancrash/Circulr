@@ -17,12 +17,12 @@ void checkOverdueItems() async {
       .where('date', isLessThanOrEqualTo: x)
       .get();
   result.docs.forEach((res) {
-    addInvoice(
-        res.data()['brand'], res.data()['qty'], res.data()['date'].toDate());
+    addInvoice(res.data()['brand'], res.data()['qty'],
+        res.data()['date'].toDate(), res.data()['total']);
     itemCount +=
         1; // for each item more than 30 days old, increment item count variable
   });
-  print('Overdue items: ${itemCount}');
+  print('Overdue items: $itemCount');
   // print('Checking overdue items...');
   // overdueCount = itemCount;
   // return itemCount;

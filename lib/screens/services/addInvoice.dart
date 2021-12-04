@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'checkInvoiceExists.dart';
 
-addInvoice(String brand, int qty, DateTime date) async {
+addInvoice(String brand, int qty, DateTime date, int amountDue) async {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -20,7 +20,7 @@ addInvoice(String brand, int qty, DateTime date) async {
     ref.add({
       'brand': brand,
       'qty': qty,
-      'amount due': 0.00,
+      'amount due': amountDue,
       'item purchase date': date,
       'issued': now,
     });
