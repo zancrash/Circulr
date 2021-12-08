@@ -100,7 +100,15 @@ class _PurchasedItemsState extends State<PurchasedItems> {
               addReturned(
                   selectedItem, returnQty); // add item to user's returned items
               deleteItem(itemId); // delete item from user's purchased items
-              addPoints(3); // increment user's points by 3
+
+              // increment user's points depending on how many items they return
+              if (returnQty == 1) {
+                addPoints(1);
+              } else if (returnQty < itemQty) {
+                addPoints(2);
+              } else {
+                addPoints(3);
+              }
               Navigator.pop(context, 'Complete Return');
               // Return successful dialog
               showDialog<String>(

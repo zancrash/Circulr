@@ -1,17 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:http/http.dart' as http;
-import '../services/getInvoiceCount.dart';
-import '../services/addPoints.dart';
 import 'PurchasedItems.dart';
 import 'PurchasedItemsNoDeposit.dart';
 import '../services/addGenericReturn.dart';
-import '../services/getPurchaseCount.dart';
 import 'PurchaseForm.dart';
 import 'package:circulr_app/styles.dart';
 
