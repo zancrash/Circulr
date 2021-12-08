@@ -15,10 +15,10 @@ const TextStyle header =
     TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBeige);
 
 const TextStyle headerTwo =
-    TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBlue);
+    TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: cBlue);
 
 const TextStyle headerTwoWhite =
-    TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: cBeige);
+    TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: cBeige);
 
 const TextStyle headerThree =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: primary);
@@ -29,10 +29,20 @@ const TextStyle headerThreeBlue =
 const TextStyle name =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBeige);
 
+const TextStyle nameBlue =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBlue);
+
 const TextStyle faq =
     TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: cBlue);
 
+const TextStyle homeInfo = TextStyle(fontSize: 19, color: cBlack);
+
 const TextStyle body = TextStyle(fontSize: 15, color: cBlack);
+const TextStyle bodyHighlight =
+    TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: primary);
+
+const TextStyle brandTitle =
+    TextStyle(fontSize: 25, fontWeight: FontWeight.w900, color: cBlue);
 
 const TextStyle purchaseButton = TextStyle(
   fontSize: 20,

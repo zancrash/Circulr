@@ -29,7 +29,7 @@ class _UserPointsState extends State<UserPoints> {
             GetPoints(),
             Container(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 20),
                   Text('100 Points - 10% Discount to G&F', style: body),

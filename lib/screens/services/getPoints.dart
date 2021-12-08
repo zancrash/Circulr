@@ -4,10 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:circulr_app/styles.dart';
 
 class GetPoints extends StatelessWidget {
-  // final String documentId;
-
-  // GetPoints(this.documentId);
-
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -30,7 +26,45 @@ class GetPoints extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-          return Text(data['points'].toString(), style: userPoints);
+          return Container(
+            child: Column(
+              children: [
+                Text(data['points'].toString(), style: userPoints),
+                (data['points'] > 100)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Impact: ', style: bodyHighlight),
+                          Text(
+                              'Prevented 1 ton of paper pollution, saving 24 trees',
+                              style: body),
+                        ],
+                      )
+                    : (data['points'] > 50)
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Impact: ', style: bodyHighlight),
+                              Text(
+                                'Prevented 2 tons of plastic pollution',
+                                style: body,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Impact: ', style: bodyHighlight),
+                              Text(
+                                'Continue reusing to make more of an impact!',
+                                style: body,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+              ],
+            ),
+          );
         }
 
         return CircularProgressIndicator();

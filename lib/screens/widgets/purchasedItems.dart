@@ -165,7 +165,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                   document.data()! as Map<String, dynamic>;
               return ListTile(
                   title: Text(data['brand']),
-                  subtitle: Text(data['qty'].toString()),
+                  subtitle: Text('QTY: ' + data['qty'].toString()),
                   onTap: () async {
                     // DateTime returnDate = DateTime.now();
                     selectedItem = data['brand'];

@@ -65,71 +65,58 @@ class _IndexScreenState extends State<IndexScreen> {
             children: [
               UserAccountsDrawerHeader(
                 decoration: BoxDecoration(color: primary),
-                // accountName: Text('Circulr User'),
                 accountName: GetName(),
-                // accountName: (user?.providerData[0].displayName) == null
-                //     ? Text('Circulr User')
-                //     : Text('${user?.providerData[0].displayName}'),
                 accountEmail: Text('${user?.providerData[0].email}'),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: (user?.providerData[0].photoURL) == null
                       ? NetworkImage(
                           'https://www.pinclipart.com/picdir/middle/157-1578186_user-profile-default-image-png-clipart.png')
                       : NetworkImage('${user?.providerData[0].photoURL}'),
-                  // backgroundImage: Image.network('${user?.providerData[0].photoURL}'),
                   backgroundColor: cBeige,
-                  // child: Text("xyz"),
                 ),
               ),
               ListTile(
-                  title: const Text('How It Works'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const HowItWorksScreen()));
-                  }),
+                title: const Text('How It Works'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const HowItWorksScreen()));
+                },
+              ),
+              // ListTile(
+              //   title: const Text('Our Brands'),
+              //   onTap: () {
+              //     // Navigator.pop(context);
+              //     Navigator.pop(context);
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (BuildContext context) =>
+              //             const PartneredBrands()));
+              //   },
+              // ),
               ListTile(
-                  title: const Text('Our Brands'),
-                  onTap: () {
-                    // Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const PartneredBrands()));
-                  }),
+                title: const Text('FAQ'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => const FAQScreen()));
+                },
+              ),
               ListTile(
-                  title: const Text('FAQ'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => const FAQScreen()));
-                  }),
-              ListTile(
-                  title: const Text('About'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const AboutScreen()));
-                    // print(user?.providerData[0].displayName);
-                    // print(user?.providerData[0].email);
-
-                    // print(user?.uid);
-                    // print(user?.providerData);
-                    // isNewUser();
-                    // print(isNewUser());
-                    // getUserDoc();
-                  }),
-              Container(
-                width: 50,
-                child: ElevatedButton(
-                    child: Text('Sign Out'),
-                    style: TextButton.styleFrom(
-                        primary: cBeige, backgroundColor: cBlue),
-                    onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                    }),
+                title: const Text('About'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => const AboutScreen()));
+                },
+              ),
+              TextButton(
+                child: Text('Sign Out'),
+                style: TextButton.styleFrom(
+                    primary: cBeige, backgroundColor: cBlue),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
               ),
             ],
           ),
@@ -172,9 +159,11 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
         ],
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          setState(
+            () {
+              _currentIndex = index;
+            },
+          );
         },
       ),
     );

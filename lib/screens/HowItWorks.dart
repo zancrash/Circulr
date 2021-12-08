@@ -42,28 +42,28 @@ class HowItWorksScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 25),
-                Container(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Enjoy', style: headerTwo),
-                                SizedBox(height: 10),
-                                Text(
-                                    'You just bought a piece of packaging that will go back to the producer after you use it. That means you can enjoy it free of any guilt that you are adding to our waste problem.',
-                                    style: body),
-                              ]),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 25),
+                // Container(
+                //   child: Column(
+                //     children: [
+                //       Padding(
+                //         padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                //         child: Container(
+                //           width: MediaQuery.of(context).size.width * 0.8,
+                //           child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children: [
+                //                 Text('Enjoy', style: headerTwo),
+                //                 SizedBox(height: 10),
+                //                 Text(
+                //                     'You just bought a piece of packaging that will go back to the producer after you use it. That means you can enjoy it free of any guilt that you are adding to our waste problem.',
+                //                     style: body),
+                //               ]),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(height: 25),
                 Container(
                   child: Column(
                     children: [
@@ -94,14 +94,39 @@ class HowItWorksScreen extends StatelessWidget {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Reward Points', style: headerTwo),
-                                SizedBox(height: 10),
-                                Text(
-                                    'Are received whenever you track a purchase or return through Circulr you receive points toward brands and retailers in the Circulr program. This is our way of saying thank you for making reuse possible. ',
-                                    style: body),
-                              ]),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Reward Points', style: headerTwo),
+                              SizedBox(height: 10),
+                              Text(
+                                  'Are received whenever you track a purchase or return through Circulr you receive points toward brands and retailers in the Circulr program. This is our way of saying thank you for making reuse possible.',
+                                  style: body),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  // SizedBox(width: 5),
+                                  Text('- Tracking a purchased item = 1 point',
+                                      style: body),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  // SizedBox(width: 5),
+                                  Text(
+                                      '- Returning a generic glass jar = 2 points',
+                                      style: body),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  // SizedBox(width: 5),
+                                  Text(
+                                      '- Returning a brand partners packaging = 5 points',
+                                      style: body),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

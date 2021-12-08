@@ -54,7 +54,7 @@ class FAQScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    'How is a reverse deposit better different than a “normal” deposit?',
+                                    'How do delayed deposits differ from "normal" deposits?',
                                     style: faq),
                                 SizedBox(height: 10),
                                 Text(

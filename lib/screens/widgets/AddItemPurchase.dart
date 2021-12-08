@@ -27,7 +27,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
   late int itemQty;
   int purchaseQty = 1;
   late int unitPrice;
-  late int totalAmount;
+  int totalAmount = 0;
 
   // Map<String, dynamic>? paymentIntentData;
 
@@ -133,8 +133,9 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Note: This item requires a delayed deposit.'),
-        content: const Text(
-            'You will be invoiced for \$20 in 30 days if item is not returned within the time-frame.'),
+        content: Text('You will be invoiced for \$' +
+            totalAmount.toString() +
+            ' after 30 days if the item is not marked return on the app within the time frame.'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),

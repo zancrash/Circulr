@@ -1,3 +1,4 @@
+import 'package:circulr_app/screens/widgets/ReturnedItems.dart';
 import 'package:flutter/material.dart';
 import 'widgets/user_invoices.dart';
 import 'widgets/ProfileView.dart';
@@ -23,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -38,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               bottom: const TabBar(
                 tabs: <Widget>[
                   Tab(text: 'Overview'),
+                  Tab(text: 'Returned Items'),
                   Tab(text: 'Invoices'),
                 ],
               ),
@@ -50,26 +52,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Container(
                   color: cBeige,
+                  child: ReturnedItems(),
+                ),
+                Container(
+                  color: cBeige,
                   child: UserInvoices(),
                 ),
               ],
             ),
           )),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text('My Profile'),
-    //     backgroundColor: Colors.green,
-    //   ),
-    //   body: SingleChildScrollView(
-    //     child: Column(
-    //       children: <Widget>[
-    //         UserInvoices(),
-    //       ],
-    //     ),
-    //   ),
-    // );
-    // return ProfileView();
   }
 }

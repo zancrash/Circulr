@@ -40,7 +40,7 @@ class _ProfileViewState extends State<ProfileView> {
                   backgroundColor: cBlue,
                   bottom: const TabBar(
                     tabs: <Widget>[
-                      Tab(text: 'Reverse Deposit Items'),
+                      Tab(text: 'Delayed Deposit Items'),
                       Tab(text: 'Other Items'),
                     ],
                   ),

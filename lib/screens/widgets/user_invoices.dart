@@ -18,48 +18,7 @@ class UserInvoices extends StatefulWidget {
 }
 
 class _UserInvoicesState extends State<UserInvoices> {
-  // Map<String, dynamic>? paymentIntentData;
-
-  // move to services file in production...
-  // Future<void> makePayment() async {
-  //   final url = Uri.parse(
-  //       'https://us-central1-circulr-fb9b9.cloudfunctions.net/stripePayment');
-
-  //   final response =
-  //       await http.get(url, headers: {'Content-Type': 'application/json'});
-
-  //   paymentIntentData = json.decode(response.body);
-
-  //   await Stripe.instance.initPaymentSheet(
-  //       paymentSheetParameters: SetupPaymentSheetParameters(
-  //           paymentIntentClientSecret: paymentIntentData!['paymentIntent'],
-  //           applePay: true,
-  //           googlePay: true,
-  //           // confirmPayment: true,
-  //           style: ThemeMode.dark,
-  //           merchantCountryCode: 'CA',
-  //           merchantDisplayName: 'Circulr'));
-  //   setState(() {});
-
-  //   displayPaymentSheet();
-  // }
-
-  // Future<void> displayPaymentSheet() async {
-  //   try {
-  //     await Stripe.instance.presentPaymentSheet();
-  //     setState(() {
-  //       paymentIntentData = null;
-  //     });
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text('Invoice cleared.')));
-  //     clearInvoice();
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   Future<void> initPaymentSheet(context, {required int amount}) async {
-    // Navigator.pop(context);
     try {
       // 1. create payment intent on the server
       final response = await http.post(
@@ -95,7 +54,6 @@ class _UserInvoicesState extends State<UserInvoices> {
       // );
     } catch (e) {
       if (e is StripeException) {
-        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error from Stripe: ${e.error.localizedMessage}'),
@@ -119,7 +77,6 @@ class _UserInvoicesState extends State<UserInvoices> {
           TextButton(
             onPressed: () {
               Navigator.pop(context, 'Done');
-              Navigator.pop(context);
             },
             child: const Text('Done'),
             style:
@@ -139,12 +96,7 @@ class _UserInvoicesState extends State<UserInvoices> {
         .doc(user?.uid)
         .collection('invoices')
         .doc(selectedInvoice);
-    // var snapshot =
-    //     await collection.where('issued', isEqualTo: invoiceDate).get();
-    // await snapshot.docs.first.reference.delete();
     collection.delete();
-
-    // sendEmail(name: 'Circulr', email: user?.providerData[0].email.toString(), subject: subject, message: message)
   }
 
   DateTime? invoiceDate;
@@ -176,7 +128,6 @@ class _UserInvoicesState extends State<UserInvoices> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container();
     return StreamBuilder<QuerySnapshot>(
         stream: _overdueStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -205,7 +156,6 @@ class _UserInvoicesState extends State<UserInvoices> {
                       SizedBox(width: 15),
                       TextButton(
                         onPressed: () {
-                          // openMap(data['address'].toString());
                           initPaymentSheet(context,
                               amount: data['amount due'].toInt());
                         },
@@ -218,23 +168,6 @@ class _UserInvoicesState extends State<UserInvoices> {
                   )
                 ],
               );
-
-              // return ListTile(
-              //     title: Text(data['brand']),
-              //     subtitle:
-              //         Text('Issued: ' + data['issued'].toDate().toString()),
-              //     onTap: () async {
-              //       // invoiceDate = data['issued'].toDate();
-              //       print(document.id);
-              //       selectedInvoice = document.id;
-              //       makePayment();
-              //       // DateTime returnDate = DateTime.now();
-
-              //       // print('Selected: ' +
-              //       //     data['name'] +
-              //       //     ' ' +
-              //       //     data['address'].toString());
-              //     });
             }).toList(),
           );
         });
