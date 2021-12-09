@@ -102,29 +102,14 @@ class HowItWorksScreen extends StatelessWidget {
                                   'Are received whenever you track a purchase or return through Circulr you receive points toward brands and retailers in the Circulr program. This is our way of saying thank you for making reuse possible.',
                                   style: body),
                               SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  // SizedBox(width: 5),
-                                  Text('- Tracking a purchased item = 1 point',
-                                      style: body),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  // SizedBox(width: 5),
-                                  Text(
-                                      '- Returning a generic glass jar = 2 points',
-                                      style: body),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  // SizedBox(width: 5),
-                                  Text(
-                                      '- Returning a brand partners packaging = 5 points',
-                                      style: body),
-                                ],
-                              )
+                              Text('1 Point', style: bodyHighlight),
+                              Text('Track a purchased item'),
+                              SizedBox(height: 10),
+                              Text('2 points', style: bodyHighlight),
+                              Text('Return a generic glass jar'),
+                              SizedBox(height: 10),
+                              Text('5 points', style: bodyHighlight),
+                              Text('Return a brand partners packaging '),
                             ],
                           ),
                         ),

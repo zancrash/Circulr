@@ -199,8 +199,10 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   }
                 },
                 child: SizedBox(
-                  width: 300,
-                  height: 130,
+                  // width: 300,
+                  width: MediaQuery.of(context).size.width * 0.80,
+
+                  // height: 130,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -250,8 +252,9 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   beginReturn();
                 },
                 child: SizedBox(
-                  width: 300,
-                  height: 130,
+                  // width: 300,
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  // height: 130,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[

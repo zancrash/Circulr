@@ -1,3 +1,4 @@
+import 'package:circulr_app/screens/services/addPoints.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
@@ -79,15 +80,24 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
                 child: PurchasedItemsNoDeposit(),
               ),
             ));
+  }
 
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return Dialog(
-    //           child: Container(
-    //         child: PurchasedItemsNoDeposit(),
-    //       ));
-    //     });
+  Future<void> genericReturnSuccuess() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Generic Jar Return Added!'),
+              content: Text(
+                  'Generic Jar has been successfully marked returned. You have been awarded 2 points!'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Done'),
+                  child: const Text('Done'),
+                  style: TextButton.styleFrom(
+                      primary: cBeige, backgroundColor: cBlue),
+                ),
+              ],
+            ));
   }
 
   Future<void> genericReturnDialog() async {
@@ -170,7 +180,10 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
                 TextButton(
                     onPressed: () {
                       addGenericReturn(returnQty, selectedLoc);
+                      addPoints(2);
                       Navigator.pop(context, 'Submit');
+                      Navigator.pop(context);
+                      genericReturnSuccuess();
                     },
                     child: const Text('Submit'),
                     style: TextButton.styleFrom(

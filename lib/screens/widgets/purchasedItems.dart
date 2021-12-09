@@ -20,6 +20,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
   late String itemId;
   late int itemQty;
   int returnQty = 1;
+  int rewardPoints = 1;
 
   final Stream<QuerySnapshot> _locStream =
       FirebaseFirestore.instance.collection('locations').snapshots();
@@ -103,11 +104,14 @@ class _PurchasedItemsState extends State<PurchasedItems> {
 
               // increment user's points depending on how many items they return
               if (returnQty == 1) {
-                addPoints(1);
+                rewardPoints = 2;
+                addPoints(rewardPoints);
               } else if (returnQty < itemQty) {
-                addPoints(2);
+                rewardPoints = 3;
+                addPoints(rewardPoints);
               } else {
-                addPoints(3);
+                rewardPoints = 5;
+                addPoints(rewardPoints);
               }
               Navigator.pop(context, 'Complete Return');
               // Return successful dialog
@@ -115,7 +119,10 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Return Complete'),
-                  content: const Text('Item has been successfully returned!'),
+                  content: Text(
+                      'Item has been successfully returned! You\'ve been awarded ' +
+                          rewardPoints.toString() +
+                          ' points'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {

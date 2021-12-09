@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -303,7 +305,13 @@ class _MapViewState extends State<MapView> {
         onMapCreated: (controller) async {
           _googleMapController = controller;
           // locatePosition();
-          (!locationAlertIssued) ? locationAlert() : locatePosition();
+          if (Platform.isAndroid) {
+            (!locationAlertIssued) ? locationAlert() : locatePosition();
+          } else {
+            // print('device is running iOS, location alert not required.');
+            locatePosition();
+          }
+
           // locationAlert();
         },
 
