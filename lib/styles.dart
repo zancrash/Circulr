@@ -38,8 +38,9 @@ const TextStyle faq =
 const TextStyle homeInfo = TextStyle(fontSize: 19, color: cBlack);
 
 const TextStyle body = TextStyle(fontSize: 15, color: cBlack);
+
 const TextStyle bodyHighlight =
-    TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: primary);
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: primary);
 
 const TextStyle brandTitle =
     TextStyle(fontSize: 25, fontWeight: FontWeight.w900, color: cBlue);
@@ -49,6 +50,9 @@ const TextStyle purchaseButton = TextStyle(
   fontWeight: FontWeight.bold,
   color: cBeige,
 );
+
+TextStyle purchaseButtonText =
+    TextStyle(fontSize: 15, color: cBlack.withOpacity(0.5));
 
 const TextStyle userPoints =
     TextStyle(fontSize: 80, fontWeight: FontWeight.w900, color: primary);
