@@ -25,6 +25,23 @@ class _PurchasedItemsState extends State<PurchasedItems> {
   final Stream<QuerySnapshot> _locStream =
       FirebaseFirestore.instance.collection('locations').snapshots();
 
+  Future<void> locationVoidDialogue() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text('Please select return location'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                  style: TextButton.styleFrom(
+                      primary: cBeige, backgroundColor: cBlue),
+                ),
+              ],
+            ));
+  }
+
   void quickReturnDialog() async {
     showDialog(
       context: context,
@@ -98,44 +115,65 @@ class _PurchasedItemsState extends State<PurchasedItems> {
           ),
           TextButton(
             onPressed: () {
-              addReturned(
-                  selectedItem, returnQty); // add item to user's returned items
-              deleteItem(itemId); // delete item from user's purchased items
+              if (selectedLoc == null) {
+                // locationVoidDialogue();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text('Please select return location'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                              style: TextButton.styleFrom(
+                                  primary: cBeige, backgroundColor: cBlue),
+                            ),
+                          ],
+                        ));
 
-              // increment user's points depending on how many items they return
-              if (returnQty == 1) {
-                rewardPoints = 2;
-                addPoints(rewardPoints);
-              } else if (returnQty < itemQty) {
-                rewardPoints = 3;
-                addPoints(rewardPoints);
+                print('location void');
               } else {
-                rewardPoints = 5;
-                addPoints(rewardPoints);
+                addReturned(selectedItem, returnQty,
+                    selectedLoc); // add item to user's returned items
+                deleteItem(itemId); // delete item from user's purchased items
+
+                // increment user's points depending on how many items they return
+                addPoints(5 * itemQty);
+                // if (returnQty == 1) {
+                //   rewardPoints = 2;
+                //   addPoints(rewardPoints);
+                // } else if (returnQty < itemQty) {
+                //   rewardPoints = 3;
+                //   addPoints(rewardPoints);
+                // } else {
+                //   rewardPoints = 5;
+                //   addPoints(rewardPoints);
+                // }
+                Navigator.pop(context, 'Complete Return');
+                // Return successful dialog
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Return Complete'),
+                    content: Text(
+                        'Item has been successfully returned! You\'ve been awarded ' +
+                            rewardPoints.toString() +
+                            ' points'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'Done');
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Done'),
+                        style: TextButton.styleFrom(
+                            primary: cBeige, backgroundColor: cBlue),
+                      ),
+                    ],
+                  ),
+                );
               }
-              Navigator.pop(context, 'Complete Return');
-              // Return successful dialog
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Return Complete'),
-                  content: Text(
-                      'Item has been successfully returned! You\'ve been awarded ' +
-                          rewardPoints.toString() +
-                          ' points'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context, 'Done');
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Done'),
-                      style: TextButton.styleFrom(
-                          primary: cBeige, backgroundColor: cBlue),
-                    ),
-                  ],
-                ),
-              );
 
               // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               //   content: Text('Item Return Successful!'),

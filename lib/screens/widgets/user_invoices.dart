@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'dart:developer';
+// import 'dart:html';
 
 import '../services/checkOverdueItems.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,8 @@ class _UserInvoicesState extends State<UserInvoices> {
   DateTime? invoiceDate;
   String? selectedInvoice;
 
+  // final snapshot = FirebaseFirestore.instance.collection('invoices').documen
+
   final Stream<QuerySnapshot> _overdueStream = FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -142,6 +145,15 @@ class _UserInvoicesState extends State<UserInvoices> {
             );
           }
 
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Container(
+                child: Text('Your invoices will be listed here.',
+                    style: placeHolder),
+              ),
+            );
+          }
+
           return ListView(
             shrinkWrap: true,
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
@@ -156,11 +168,13 @@ class _UserInvoicesState extends State<UserInvoices> {
                       SizedBox(width: 15),
                       TextButton(
                         onPressed: () {
+                          selectedInvoice = document.id;
                           initPaymentSheet(context,
                               amount: data['amount due'].toInt());
                         },
                         child: Text('Pay Invoice: \$' +
-                            (data['amount due'].toDouble() / 100).toString()),
+                            (data['amount due'].toDouble() / 100)
+                                .toStringAsFixed(2)),
                         style: TextButton.styleFrom(
                             primary: cBeige, backgroundColor: primary),
                       ),

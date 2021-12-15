@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<void>? addReturned(String selectedItem, int returnQty, String location) {
+Future<void>? addBrandedReturned(
+    String selectedItem, int returnQty, String location) {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -13,7 +14,7 @@ Future<void>? addReturned(String selectedItem, int returnQty, String location) {
   CollectionReference ref = _firestore
       .collection('users')
       .doc(user?.uid)
-      .collection('items_returned');
+      .collection('branded_returns');
 
   print('adding..');
   return ref.add({

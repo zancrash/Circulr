@@ -8,7 +8,7 @@ import '../services/checkInvoiceExists.dart';
 import '../services/addInvoice.dart';
 import 'package:circulr_app/styles.dart';
 import 'PurchasedItems.dart';
-import 'PurchasedItemsNoDeposit.dart';
+import 'BrandedReturn.dart';
 
 class UserItems extends StatefulWidget {
   const UserItems({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _UserItemsState extends State<UserItems> {
         builder: (context) {
           return Dialog(
               child: Container(
-            child: PurchasedItemsNoDeposit(),
+            child: BrandedReturn(),
           ));
         });
   }

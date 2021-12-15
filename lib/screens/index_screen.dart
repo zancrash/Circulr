@@ -1,4 +1,4 @@
-import 'package:circulr_app/screens/FAQ.dart';
+import 'package:circulr_app/screens/widgets/FAQ.dart';
 import 'package:circulr_app/screens/HowItWorks.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +11,7 @@ import 'about_screen.dart';
 import 'PartneredBrands.dart';
 import 'package:circulr_app/styles.dart';
 import 'services/getName.dart';
+import 'faq_screen.dart';
 
 int _currentIndex = 0;
 

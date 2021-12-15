@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'PurchasedItems.dart';
-import 'PurchasedItemsNoDeposit.dart';
+import 'BrandedReturn.dart';
 import '../services/addGenericReturn.dart';
 import 'PurchaseForm.dart';
 import 'package:circulr_app/styles.dart';
@@ -77,8 +77,26 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
 
               content: Container(
                 width: double.minPositive,
-                child: PurchasedItemsNoDeposit(),
+                height: 400,
+                child: BrandedReturn(),
               ),
+            ));
+  }
+
+  Future<void> locationVoidDialogue() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text('Please select return location'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                  style: TextButton.styleFrom(
+                      primary: cBeige, backgroundColor: cBlue),
+                ),
+              ],
             ));
   }
 
@@ -88,7 +106,7 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
         builder: (BuildContext context) => AlertDialog(
               title: const Text('Generic Jar Return Added!'),
               content: Text(
-                  'Generic Jar has been successfully marked returned. You have been awarded 2 points!'),
+                  'Generic Jar(s) have been successfully marked returned. You have been awarded 2 points!'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Done'),
@@ -101,7 +119,7 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
   }
 
   Future<void> genericReturnDialog() async {
-    late int returnQty;
+    int returnQty = 1;
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -179,11 +197,15 @@ class _ReturnItemPurchaseState extends State<ReturnItemPurchase> {
                 ),
                 TextButton(
                     onPressed: () {
-                      addGenericReturn(returnQty, selectedLoc);
-                      addPoints(2);
-                      Navigator.pop(context, 'Submit');
-                      Navigator.pop(context);
-                      genericReturnSuccuess();
+                      if (selectedLoc == null) {
+                        locationVoidDialogue();
+                      } else {
+                        addGenericReturn(returnQty, selectedLoc);
+                        addPoints(2);
+                        Navigator.pop(context, 'Submit');
+                        Navigator.pop(context);
+                        genericReturnSuccuess();
+                      }
                     },
                     child: const Text('Submit'),
                     style: TextButton.styleFrom(

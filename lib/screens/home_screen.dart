@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Center(
                       child: Text(
-                        'The Circulr app lets you earn rewards for reusing and returning items you\'ve purchased from our partners!',
+                        'With your help, Circulr has created a way for brands to reuse their packaging. All you have to do is purchase from brands we work with, enjoy, and then return the empty packaging to one of our collection sites.',
                         style: homeInfo,
                         textAlign: TextAlign.center,
                       ),
@@ -72,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (BuildContext context) =>
                               const HowItWorksScreen()));
                     },
-                    child: Text('Learn More'),
+                    child: Text('How to Use the Circulr App'),
                     style: TextButton.styleFrom(
-                        primary: cBeige, backgroundColor: primary),
+                        primary: cBeige, backgroundColor: cBlue),
                   ),
                   SizedBox(
                     // height: MediaQuery.of(context).size.height * 0.025,
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               // color: primary,
               // height: 300,
-              height: MediaQuery.of(context).size.height * 0.40,
+              height: MediaQuery.of(context).size.height * 0.30,
               child: BrandList(),
             ),
           ],

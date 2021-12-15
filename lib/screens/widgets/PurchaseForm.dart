@@ -77,15 +77,15 @@ class _PurchaseFormState extends State<PurchaseForm> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Adding Purchased Items'),
         content: Container(
-          height: 160,
+          height: 200,
           child: Column(
             children: [
               Text(
-                  'When you are buying an item from one of our partnered brands, make sure to track it so that you remember to return it.',
+                  'When you are buying an item from one of our partnered brands, use the “Add Purchased Item” button to add the item to your account. This will help you remember to return it, while also earning Circulr points. ',
                   style: body),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Text(
-                  'For items that normally have a deposit if you show the cashier you have it tracked, you can avoid the deposit altogether!',
+                  'For items that normally have a deposit, if you show the cashier you have it added to your account, you can avoid the deposit altogether!',
                   style: body),
             ],
           ),
@@ -106,13 +106,17 @@ class _PurchaseFormState extends State<PurchaseForm> {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Adding Purchased Items'),
+        title: const Text('Returning Purchased Items'),
         content: Container(
-          height: 40,
+          height: 150,
           child: Column(
             children: [
               Text(
-                  'Track your returns to earn points, and remove them from your profile.',
+                  'Use the “Return Item” button whenever you make a return to one of our collection sites.',
+                  style: body),
+              SizedBox(height: 15),
+              Text(
+                  'You earn points and have items removed from your profile, and we get to see when collection site pickups are needed.',
                   style: body),
             ],
           ),
@@ -147,6 +151,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   ]),
               content: Container(
                 width: double.minPositive,
+                height: 400,
                 child: AddItemPurchase(),
               ),
             ));
@@ -184,13 +189,13 @@ class _PurchaseFormState extends State<PurchaseForm> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        // height: 250,
         child: Column(
           children: [
             Card(
               color: primary,
               child: InkWell(
                 onTap: () async {
+                  // beginPurchase();
                   checkOverdueItems();
                   if (await getInvoiceCount() != 0) {
                     invoicesAlert();
@@ -199,10 +204,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                   }
                 },
                 child: SizedBox(
-                  // width: 300,
                   width: MediaQuery.of(context).size.width * 0.80,
-
-                  // height: 130,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -219,7 +221,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                           children: [
                             SizedBox(height: 5),
                             Text(
-                                'Track items purchased from our partnered brands.',
+                                'Add items you’ve purchased from partnered brands to your account to earn points.',
                                 style: purchaseButtonText),
                           ],
                         ),
@@ -270,7 +272,7 @@ class _PurchaseFormState extends State<PurchaseForm> {
                           children: [
                             SizedBox(height: 5),
                             Text(
-                                'Return items to collection sites to earn points.',
+                                'Return an item to one of our collection sites to earn points.',
                                 style: purchaseButtonText),
                           ],
                         ),
@@ -278,11 +280,6 @@ class _PurchaseFormState extends State<PurchaseForm> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          // TextButton(
-                          //   child: const Text('BUY TICKETS'),
-                          //   onPressed: () {/* ... */},
-                          // ),
-                          // const SizedBox(width: 8),
                           TextButton(
                             child: Icon(Icons.info),
                             onPressed: () {

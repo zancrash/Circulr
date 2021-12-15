@@ -43,9 +43,16 @@ class BrandInfoScreen extends StatelessWidget {
                             SizedBox(height: 10),
                             Row(
                               children: [
-                                Icon(Icons.place),
+                                Icon(
+                                  Icons.place,
+                                  color: primary,
+                                  size: 34,
+                                ),
                                 SizedBox(width: 5),
-                                Text('Location(s): ' + brandLocs, style: body),
+                                Text(
+                                    'Location(s): ' +
+                                        brandLocs.split(',').join('\n'),
+                                    style: body),
                               ],
                             ),
                             SizedBox(height: 10),

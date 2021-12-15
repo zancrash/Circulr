@@ -3,33 +3,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
 import '../services/addReturned.dart';
+import '../services/addBrandedReturned.dart';
 import '../services/deleteItem.dart';
 import '../services/addPoints.dart';
 import 'package:circulr_app/styles.dart';
 
-class PurchasedItemsNoDeposit extends StatefulWidget {
-  const PurchasedItemsNoDeposit({Key? key}) : super(key: key);
+class BrandedReturn extends StatefulWidget {
+  const BrandedReturn({Key? key}) : super(key: key);
 
   @override
-  _PurchasedItemsNoDepositState createState() =>
-      _PurchasedItemsNoDepositState();
+  _BrandedReturnState createState() => _BrandedReturnState();
 }
 
-class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
+class _BrandedReturnState extends State<BrandedReturn> {
   var selectedLoc;
-  late String selectedItem;
+  late String selectedBrand;
   late String itemId;
-  late int itemQty;
+  int itemQty = 1;
   int returnQty = 1;
 
   final Stream<QuerySnapshot> _locStream =
       FirebaseFirestore.instance.collection('locations').snapshots();
 
-  void quickReturnDialog() async {
+  void brandedReturnDialog() async {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text('How many units are you returning from $selectedItem ?'),
+        title: Text('How many units are you returning from $selectedBrand ?'),
         content: StatefulBuilder(builder: (context, setState) {
           return Container(
               height: 120,
@@ -37,7 +37,7 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
                 children: [
                   SpinBox(
                     min: 1,
-                    max: itemQty.toDouble(),
+                    max: 100,
                     value: 1,
                     onChanged: (value) {
                       returnQty = value.toInt();
@@ -98,30 +98,52 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
           ),
           TextButton(
             onPressed: () {
-              addReturned(
-                  selectedItem, returnQty); // add item to user's returned items
-              deleteItem(itemId); // delete item from user's purchased items
-              addPoints(3); // increment user's points by 3
-              Navigator.pop(context, 'Complete Return');
-              // Return successful dialog
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Return Complete'),
-                  content: const Text('Item has been successfully returned!'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context, 'Done');
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Done'),
-                      style: TextButton.styleFrom(
-                          primary: cBeige, backgroundColor: cBlue),
-                    ),
-                  ],
-                ),
-              );
+              if (selectedLoc == null) {
+                // locationVoidDialogue();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text('Please select return location'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                              style: TextButton.styleFrom(
+                                  primary: cBeige, backgroundColor: cBlue),
+                            ),
+                          ],
+                        ));
+
+                print('location void');
+              } else {
+                addBrandedReturned(selectedBrand, returnQty,
+                    selectedLoc); // add item to user's returned items
+                deleteItem(itemId); // delete item from user's purchased items
+                addPoints(5 * returnQty); // increment user's points by 3
+                Navigator.pop(context, 'Complete Return');
+                // Return successful dialog
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Return Complete!'),
+                    content: Text('You have been awarded ' +
+                        (5 * returnQty).toString() +
+                        ' points.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'Done');
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Done'),
+                        style: TextButton.styleFrom(
+                            primary: cBeige, backgroundColor: cBlue),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
               // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               //   content: Text('Item Return Successful!'),
@@ -138,10 +160,10 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
   }
 
   final Stream<QuerySnapshot> _itemStreamNoDeposit = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser?.uid)
-      .collection('items_purchased')
-      .where('deposit type', isEqualTo: 'none')
+      .collection('brands')
+      // .doc(FirebaseAuth.instance.currentUser?.uid)
+      // .collection('items_purchased')
+      // .where('deposit type', isEqualTo: 'none')
       .snapshots();
 
   @override
@@ -166,15 +188,15 @@ class _PurchasedItemsNoDepositState extends State<PurchasedItemsNoDeposit> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return ListTile(
-                  title: Text(data['brand']),
-                  subtitle: Text('QTY: ' + data['qty'].toString()),
+                  title: Text(data['name']),
+                  subtitle: Text('Item type: ' + data['item_type'].toString()),
                   onTap: () async {
                     // DateTime returnDate = DateTime.now();
-                    selectedItem = data['brand'];
-                    itemQty = data['qty'];
+                    selectedBrand = data['name'];
+                    // itemQty = data['qty'];
                     itemId = document.id;
                     Navigator.pop(context);
-                    quickReturnDialog();
+                    brandedReturnDialog();
                   });
             }).toList(),
           );

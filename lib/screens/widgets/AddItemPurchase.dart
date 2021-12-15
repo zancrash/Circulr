@@ -24,10 +24,12 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
   String? selectedBrand;
   late String itemId;
   String purchaseType = '';
+  int depositPeriod = 30; // default deposit period
   late int itemQty;
   int purchaseQty = 1;
   late int unitPrice;
   int totalAmount = 0;
+  double formattedPrice = 0;
 
   // Map<String, dynamic>? paymentIntentData;
 
@@ -109,9 +111,11 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Purchase Added'),
-        content:
-            const Text('Item has been successfully added to your account.'),
+        title: const Text('Purchase Added!'),
+        content: Text(
+            'Item(s) successfully added to your account! You have been rewarded ' +
+                purchaseQty.toString() +
+                ' points.'),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -132,10 +136,10 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Note: This item requires a delayed deposit.'),
+        title: const Text('Note: item(s) require a delayed deposit.'),
         content: Text('You will be invoiced for \$' +
-            totalAmount.toString() +
-            ' after 30 days if the item is not marked return on the app within the time frame.'),
+            formattedPrice.toStringAsFixed(2) +
+            ' after 30 days if item(s) are not marked returned on the app within the time frame.'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -171,9 +175,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         .collection('items_purchased');
 
     print('Adding Purchase...');
-    addPoints(1);
-
-    // Object? data;
+    addPoints(purchaseQty);
 
     return ref.add({
       'brand': selectedBrand,
@@ -183,6 +185,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
       'date': now,
       'due': dueDate,
       'past due': pastdue,
+      'deposit period': depositPeriod,
     });
   }
 
@@ -205,6 +208,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                       print(value);
                       totalAmount = purchaseQty * unitPrice;
                       print('total: \$\ $totalAmount/100');
+                      formattedPrice = totalAmount / 100;
                     },
                   ),
                 ],
@@ -221,7 +225,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
               if (purchaseType == 'direct') {
                 print('Deposit required.');
                 depositAlert();
-              } else if (purchaseType == 'reverse') {
+              } else if (purchaseType == 'delayed') {
                 reverseDepositAlert();
               } else {
                 addPurchase();
@@ -256,28 +260,6 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
             );
           }
 
-          // return ListView(
-          //   shrinkWrap: true,
-          //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
-          //     Map<String, dynamic> data =
-          //         document.data()! as Map<String, dynamic>;
-          //     return Card(
-          //       child: ListTile(
-          //           title: Text(data['name']),
-          //           subtitle: Text(data['item_type']),
-          //           onTap: () async {
-          //             // If user has unpaid invoices...
-
-          //             purchaseType = data['deposit type'];
-          //             selectedBrand = data['name'];
-          //             itemId = document.id;
-          //             print(purchaseType);
-          //             addItemDialog();
-          //           }),
-          //     );
-          //   }).toList(),
-          // );
-
           return ListView(
             padding: EdgeInsets.all(0),
             shrinkWrap: true,
@@ -291,6 +273,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
                     unitPrice = data['unit price'].toInt();
                     purchaseType = data['deposit type'];
                     selectedBrand = data['name'];
+                    depositPeriod = data['deposit period'];
                     itemId = document.id;
                     totalAmount =
                         unitPrice; // initialize total amount to item's unit price

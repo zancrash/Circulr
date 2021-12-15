@@ -66,7 +66,7 @@ class _ReturnsPageState extends State<ReturnsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Reverse Deposits', style: headerThree),
+                            Text('Delayed Deposits', style: headerThree),
                             Text(
                                 '\nYou will be invoiced only if an item you purchased is not marked as returned after a certain amount of time.'),
                             Text('\nDirect Deposits', style: headerThree),
