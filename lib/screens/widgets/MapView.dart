@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 bool locationAlertIssued = false;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:circulr/styles.dart';
 
 class ReverseDepositItems extends StatefulWidget {
   const ReverseDepositItems({Key? key}) : super(key: key);
@@ -32,6 +33,15 @@ class _ReverseDepositItemsState extends State<ReverseDepositItems> {
             print('loading');
             return Center(
               child: CircularProgressIndicator(),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Container(
+                child: Text('Items with a delayed deposit will be listed here.',
+                    style: placeHolder),
+              ),
             );
           }
 

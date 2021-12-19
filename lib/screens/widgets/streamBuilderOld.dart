@@ -2,7 +2,7 @@ import 'dart:async';
 // import 'dart:convert';
 
 // import 'package:circulr_app/screens/widgets/locations.dart';
-import 'package:circulr_app/screens/widgets/locationsDropdown.dart';
+import 'package:circulr/screens/widgets/locationsDropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

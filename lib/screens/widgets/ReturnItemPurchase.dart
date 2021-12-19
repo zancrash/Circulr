@@ -1,4 +1,4 @@
-import 'package:circulr_app/screens/services/addPoints.dart';
+import 'package:circulr/screens/services/addPoints.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
@@ -6,7 +6,7 @@ import 'PurchasedItems.dart';
 import 'BrandedReturn.dart';
 import '../services/addGenericReturn.dart';
 import 'PurchaseForm.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class ReturnItemPurchase extends StatefulWidget {
   const ReturnItemPurchase({Key? key}) : super(key: key);

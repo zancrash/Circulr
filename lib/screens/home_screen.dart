@@ -1,6 +1,6 @@
-import 'package:circulr_app/screens/widgets/BrandList.dart';
+import 'package:circulr/screens/widgets/BrandList.dart';
 import 'package:flutter/material.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'HowItWorks.dart';
 
 class HomeScreen extends StatefulWidget {

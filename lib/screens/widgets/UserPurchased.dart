@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:circulr/styles.dart';
 
 class UserPurchased extends StatefulWidget {
   const UserPurchased({Key? key}) : super(key: key);
@@ -29,9 +30,18 @@ class _UserPurchasedState extends State<UserPurchased> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            print('loading');
+            // print('loading');
             return Center(
               child: CircularProgressIndicator(),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Container(
+                child: Text('Your purchased items will be listed here.',
+                    style: placeHolder),
+              ),
             );
           }
 

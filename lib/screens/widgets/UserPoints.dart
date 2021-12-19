@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/getPoints.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class UserPoints extends StatefulWidget {
   const UserPoints({Key? key}) : super(key: key);

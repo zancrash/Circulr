@@ -3,7 +3,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'widgets/locations.dart';
 import 'widgets/MapView.dart';
 import 'widgets/buildDragIcon.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);

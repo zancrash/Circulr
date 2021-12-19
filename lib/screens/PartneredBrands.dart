@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'widgets/BrandList.dart';
 
 class PartneredBrands extends StatelessWidget {

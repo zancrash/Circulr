@@ -1,8 +1,8 @@
-import 'package:circulr_app/screens/widgets/ReturnedItems.dart';
+import 'package:circulr/screens/widgets/ReturnedItems.dart';
 import 'package:flutter/material.dart';
 import 'widgets/user_invoices.dart';
 import 'widgets/ProfileView.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

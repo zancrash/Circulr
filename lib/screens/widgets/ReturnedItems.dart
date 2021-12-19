@@ -1,14 +1,9 @@
-import 'dart:convert';
 import 'dart:async';
-import 'dart:developer';
 
-import '../services/checkOverdueItems.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:circulr_app/styles.dart';
-import 'package:http/http.dart' as http;
+import 'package:circulr/styles.dart';
 
 class ReturnedItems extends StatefulWidget {
   const ReturnedItems({Key? key}) : super(key: key);
@@ -41,6 +36,15 @@ class _ReturnedItemsState extends State<ReturnedItems> {
             // print('loading');
             return Center(
               child: CircularProgressIndicator(),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Container(
+                child: Text('Your returned items will be listed here.',
+                    style: placeHolder),
+              ),
             );
           }
 

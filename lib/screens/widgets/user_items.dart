@@ -6,7 +6,7 @@ import 'package:flutter_spinbox/material.dart';
 import '../services/addGenericReturn.dart';
 import '../services/checkInvoiceExists.dart';
 import '../services/addInvoice.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'PurchasedItems.dart';
 import 'BrandedReturn.dart';
 

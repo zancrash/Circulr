@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'package:http/http.dart' as http;
 
 class UserInvoices extends StatefulWidget {

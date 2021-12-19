@@ -52,7 +52,7 @@ const TextStyle brandTitle =
     TextStyle(fontSize: 25, fontWeight: FontWeight.w900, color: cBlue);
 
 TextStyle placeHolder = TextStyle(
-    fontSize: 20, fontWeight: FontWeight.w900, color: cBlack.withOpacity(0.5));
+    fontSize: 15, fontWeight: FontWeight.w900, color: cBlack.withOpacity(0.5));
 
 const TextStyle purchaseButton = TextStyle(
   fontSize: 20,

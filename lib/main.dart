@@ -1,4 +1,4 @@
-import 'package:circulr_app/screens/PartneredBrands.dart';
+import 'package:circulr/screens/PartneredBrands.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Stripe.publishableKey =
-      'pk_test_518lokzK7syMq9T2QQICUsRlkQK9cgfbMckQd2tR5i7D51hSV9ZkVIybAAhE6WjLq2pi2BbLDYdFdZpwyBISlMx4E00MDUbCYPF';
+      'pk_test_51K89hCBLC3gTjIq5j2dUJbKVPlKyphoTGM6OgfqfQU5ucn5SiC1CiA4XMs8Sjm2WmXyWlgU1KiVAy8TUX74UF99q00iyUd11Uu';
   Stripe.merchantIdentifier = 'circulr';
   await Stripe.instance.applySettings();
 

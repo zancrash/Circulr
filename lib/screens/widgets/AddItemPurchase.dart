@@ -7,9 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import '../services/getInvoiceCount.dart';
 import '../services/addPoints.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class AddItemPurchase extends StatefulWidget {
   const AddItemPurchase({Key? key}) : super(key: key);
@@ -64,6 +63,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
 
       addPurchase();
       purchaseSuccess();
+      // Navigator.pop(context);
 
       // ScaffoldMessenger.of(context).showSnackBar(
       //   const SnackBar(content: Text('Payment completed!')),
@@ -93,15 +93,19 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
               content: Text('This item requires a direct deposit to add.'),
               actions: [
                 TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: Text('Cancel')),
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: Text('Cancel', style: TextStyle(color: cBlue)),
+                ),
                 TextButton(
-                    onPressed: () async {
-                      // makePayment();
-                      await initPaymentSheet(context, amount: totalAmount);
-                      Navigator.pop(context, 'OK');
-                    },
-                    child: Text('OK')),
+                  onPressed: () async {
+                    // makePayment();
+                    Navigator.pop(context, 'OK');
+                    await initPaymentSheet(context, amount: totalAmount);
+                  },
+                  child: Text('OK'),
+                  style: TextButton.styleFrom(
+                      primary: cBeige, backgroundColor: primary),
+                ),
               ],
             ));
   }
@@ -115,7 +119,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         content: Text(
             'Item(s) successfully added to your account! You have been rewarded ' +
                 purchaseQty.toString() +
-                ' points.'),
+                ' point(s).'),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -139,7 +143,9 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
         title: const Text('Note: item(s) require a delayed deposit.'),
         content: Text('You will be invoiced for \$' +
             formattedPrice.toStringAsFixed(2) +
-            ' after 30 days if item(s) are not marked returned on the app within the time frame.'),
+            ' if item(s) are not marked returned after ' +
+            depositPeriod.toString() +
+            ' day(s).'),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -166,7 +172,7 @@ class _AddItemPurchaseState extends State<AddItemPurchase> {
 
     User? user = FirebaseAuth.instance.currentUser;
     DateTime now = new DateTime.now();
-    DateTime dueDate = DateTime.now().add(Duration(days: 30));
+    DateTime dueDate = DateTime.now().add(Duration(days: depositPeriod));
 
     bool pastdue = false;
     CollectionReference ref = _firestore

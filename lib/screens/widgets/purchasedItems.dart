@@ -5,7 +5,7 @@ import 'package:flutter_spinbox/material.dart';
 import '../services/addReturned.dart';
 import '../services/deleteItem.dart';
 import '../services/addPoints.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class PurchasedItems extends StatefulWidget {
   const PurchasedItems({Key? key}) : super(key: key);
@@ -58,6 +58,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                     value: 1,
                     onChanged: (value) {
                       returnQty = value.toInt();
+                      rewardPoints = value.toInt() * 5;
                       print(value);
                     },
                   ),
@@ -139,17 +140,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                 deleteItem(itemId); // delete item from user's purchased items
 
                 // increment user's points depending on how many items they return
-                addPoints(5 * itemQty);
-                // if (returnQty == 1) {
-                //   rewardPoints = 2;
-                //   addPoints(rewardPoints);
-                // } else if (returnQty < itemQty) {
-                //   rewardPoints = 3;
-                //   addPoints(rewardPoints);
-                // } else {
-                //   rewardPoints = 5;
-                //   addPoints(rewardPoints);
-                // }
+                addPoints(rewardPoints);
                 Navigator.pop(context, 'Complete Return');
                 // Return successful dialog
                 showDialog<String>(
@@ -159,7 +150,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                     content: Text(
                         'Item has been successfully returned! You\'ve been awarded ' +
                             rewardPoints.toString() +
-                            ' points'),
+                            ' point(s)'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () {

@@ -1,5 +1,4 @@
-import 'package:circulr_app/screens/widgets/FAQ.dart';
-import 'package:circulr_app/screens/HowItWorks.dart';
+import 'package:circulr/screens/HowItWorks.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,8 +7,7 @@ import 'profile_screen.dart';
 import 'map_screen.dart';
 import 'returns_page.dart';
 import 'about_screen.dart';
-import 'PartneredBrands.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'services/getName.dart';
 import 'faq_screen.dart';
 
@@ -70,8 +68,9 @@ class _IndexScreenState extends State<IndexScreen> {
                 accountEmail: Text('${user?.providerData[0].email}'),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: (user?.providerData[0].photoURL) == null
-                      ? NetworkImage(
-                          'https://www.pinclipart.com/picdir/middle/157-1578186_user-profile-default-image-png-clipart.png')
+                      ? AssetImage(
+                          'assets/circulr_c_green.png',
+                        ) as ImageProvider
                       : NetworkImage('${user?.providerData[0].photoURL}'),
                   backgroundColor: cBeige,
                 ),
@@ -85,16 +84,6 @@ class _IndexScreenState extends State<IndexScreen> {
                           const HowItWorksScreen()));
                 },
               ),
-              // ListTile(
-              //   title: const Text('Our Brands'),
-              //   onTap: () {
-              //     // Navigator.pop(context);
-              //     Navigator.pop(context);
-              //     Navigator.of(context).push(MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             const PartneredBrands()));
-              //   },
-              // ),
               ListTile(
                 title: const Text('FAQ'),
                 onTap: () {

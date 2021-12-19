@@ -4,11 +4,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'register_screen.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -113,6 +112,7 @@ Future<UserCredential> signInWithApple() async {
   return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
 }
 
+// Create user document in firestore
 Future<void> getUserDoc() async {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -125,10 +125,6 @@ Future<void> getUserDoc() async {
     'name': user?.providerData[0].displayName,
     'points': 0,
   });
-  // await FirebaseFirestore.instance
-  //     .collection('users')
-  //     .doc(user?.uid)
-  //     .set({'email': 'test'});
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -366,55 +362,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                 signInWithGoogle();
               }),
-              // SignInButton(Buttons.Apple, text: 'Continue with Apple',
-              //     onPressed: () {
-              //   signInWithApple();
-              // }),
               (Platform.isIOS)
                   ? SignInButton(Buttons.Apple, text: 'Continue with Apple',
                       onPressed: () {
                       signInWithApple();
                     })
                   : SizedBox(height: 5),
-
-              // Text('Get Rewarded for Reuse', style: tagline),
-              //
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //   children: [
-              //     // ElevatedButton(
-              //     //     child: Text('Sign Out'),
-              //     //     onPressed: () async {
-              //     //       await FirebaseAuth.instance.signOut();
-              //     //       setState(() {});
-              //     //     }),
-              //   ],
-              // ),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //   children: [
-              //     ElevatedButton(
-              //       onPressed: () async {
-              //         final newUser = await Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => RegisterScreen()));
-              //         setState(() {});
-              //         print('register pressed');
-              //       },
-              //       child: Text('Register'),
-              //       style: ElevatedButton.styleFrom(
-              //         primary: Colors.white,
-              //         onPrimary: Colors.black,
-              //         shadowColor: Colors.white,
-              //       ),
-              //     ),
-              //     // gUser == null
-              //     //     ? Text('Logged out from Google.')
-              //     //     : Text('Logged in with Google.'),
-              //   ],
-              // ),
             ],
           ),
         ),

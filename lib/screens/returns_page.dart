@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:circulr_app/screens/widgets/PurchaseForm.dart';
+import 'package:circulr/screens/widgets/PurchaseForm.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class ReturnsPage extends StatefulWidget {
   const ReturnsPage({Key? key}) : super(key: key);

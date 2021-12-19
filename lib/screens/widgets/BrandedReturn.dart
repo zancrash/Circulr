@@ -6,7 +6,7 @@ import '../services/addReturned.dart';
 import '../services/addBrandedReturned.dart';
 import '../services/deleteItem.dart';
 import '../services/addPoints.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class BrandedReturn extends StatefulWidget {
   const BrandedReturn({Key? key}) : super(key: key);

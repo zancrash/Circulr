@@ -4,7 +4,7 @@ import 'UserPurchased.dart';
 import 'ReverseDepositItems.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'buildDragIcon.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);

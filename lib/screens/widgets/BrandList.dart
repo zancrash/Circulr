@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:circulr_app/styles.dart';
+import 'package:circulr/styles.dart';
 import '../brand_info_screen.dart';
 
 class BrandList extends StatefulWidget {
