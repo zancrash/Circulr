@@ -2,14 +2,14 @@ import 'package:circulr/screens/HowItWorks.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
-import 'map_screen.dart';
-import 'returns_page.dart';
-import 'about_screen.dart';
+import 'HomeScreen.dart';
+import 'ProfileScreen.dart';
+import 'MapScreen.dart';
+import 'ReturnsPage.dart';
+import 'AboutScreen.dart';
 import 'package:circulr/styles.dart';
 import 'services/getName.dart';
-import 'faq_screen.dart';
+import 'FAQScreen.dart';
 
 int _currentIndex = 0;
 

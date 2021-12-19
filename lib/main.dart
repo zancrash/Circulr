@@ -4,10 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'screens/register_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/index_screen.dart';
-import 'screens/about_screen.dart';
+import 'screens/RegisterScreen.dart';
+import 'screens/LoginScreen.dart';
+import 'screens/IndexScreen.dart';
+import 'screens/AboutScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

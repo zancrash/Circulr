@@ -3,7 +3,7 @@ import 'UserPoints.dart';
 import 'UserPurchased.dart';
 import 'ReverseDepositItems.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'buildDragIcon.dart';
+import 'BuildDragIcon.dart';
 import 'package:circulr/styles.dart';
 
 class ProfileView extends StatefulWidget {
@@ -46,7 +46,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   title: Column(
                     children: [
-                      buildDragIcon(),
+                      BuildDragIcon(),
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Text('Your Purchased Items'),

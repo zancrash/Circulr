@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:circulr/styles.dart';
-import '../brand_info_screen.dart';
+import '../BrandInfoScreen.dart';
 
 class BrandList extends StatefulWidget {
   const BrandList({Key? key}) : super(key: key);

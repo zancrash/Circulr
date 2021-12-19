@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:circulr/styles.dart';
-import 'widgets/locations.dart';
+import 'widgets/Locations.dart';
 
 class CollectionLocations extends StatelessWidget {
   const CollectionLocations({Key? key}) : super(key: key);

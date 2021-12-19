@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'widgets/locations.dart';
+import 'widgets/Locations.dart';
 import 'widgets/MapView.dart';
-import 'widgets/buildDragIcon.dart';
+import 'widgets/BuildDragIcon.dart';
 import 'package:circulr/styles.dart';
 
 class MapScreen extends StatefulWidget {
@@ -13,11 +13,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 25,
-    fontWeight: FontWeight.bold,
-  );
-
   @override
   Widget build(BuildContext context) {
     BorderRadiusGeometry radius = BorderRadius.only(
@@ -54,7 +49,7 @@ class _MapScreenState extends State<MapScreen> {
                   // title: const Text('Our Collection Locations'),
                   title: Column(
                     children: [
-                      buildDragIcon(),
+                      BuildDragIcon(),
                       Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Text(
