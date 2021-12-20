@@ -35,8 +35,7 @@ class GetPoints extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text('Impact: ', style: bodyHighlight),
-                          Text(
-                              'Prevented 1 ton of paper pollution, saving 24 trees',
+                          Text('Diverted 1 ton of paper from being wasted.',
                               style: body),
                         ],
                       )
@@ -46,7 +45,7 @@ class GetPoints extends StatelessWidget {
                             children: [
                               Text('Impact: ', style: bodyHighlight),
                               Text(
-                                'Prevented 2 tons of plastic pollution',
+                                'Diverted 2 tons of plastic pollution',
                                 style: body,
                               ),
                             ],
