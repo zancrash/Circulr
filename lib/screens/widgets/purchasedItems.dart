@@ -140,7 +140,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                 deleteItem(itemId); // delete item from user's purchased items
 
                 // increment user's points depending on how many items they return
-                addPoints(rewardPoints);
+                addPoints(returnQty * 5);
                 Navigator.pop(context, 'Complete Return');
                 // Return successful dialog
                 showDialog<String>(
@@ -149,7 +149,7 @@ class _PurchasedItemsState extends State<PurchasedItems> {
                     title: const Text('Return Complete'),
                     content: Text(
                         'Item has been successfully returned! You\'ve been awarded ' +
-                            rewardPoints.toString() +
+                            (returnQty * 5).toString() +
                             ' point(s)'),
                     actions: <Widget>[
                       TextButton(

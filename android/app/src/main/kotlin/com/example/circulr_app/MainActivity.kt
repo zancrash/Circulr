@@ -1,4 +1,4 @@
-package com.circulrshop.circulr_app
+package com.circulrshop.circulr
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
