@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "457249344037",
+    "project_id": "circulr-fb9b9",
+    "storage_bucket": "circulr-fb9b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457249344037:android:d0c123dbc7d0544b4a4dcc",
+        "android_client_info": {
+          "package_name": "com.circulrshop.circulr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrwK0c9ttuLo1Oa00Bgg0Xea7gnY8K1Gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457249344037-j7e2veomnueqiqil6vlpbsbtbhcrbaue.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.circulrshop.circulrApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457249344037:android:167ec0e59bb12c004a4dcc",
+        "android_client_info": {
+          "package_name": "com.circulrshop.circulr_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457249344037-idap9elbeppq9vmshtpn958o3d9idi25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.circulrshop.circulr_app",
+            "certificate_hash": "4749511463f77eef944f077bd7a7836779a41989"
+          }
+        },
+        {
+          "client_id": "457249344037-ks8jm882gbkrvl9dfaeplq184io050s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.circulrshop.circulr_app",
+            "certificate_hash": "e09b714ff51880e053704995a0502a8350302526"
+          }
+        },
+        {
+          "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrwK0c9ttuLo1Oa00Bgg0Xea7gnY8K1Gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457249344037-f987362oamtrre508iam04e458sqbo5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457249344037-j7e2veomnueqiqil6vlpbsbtbhcrbaue.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.circulrshop.circulrApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
