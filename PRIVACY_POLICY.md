@@ -10,7 +10,17 @@ The terms used in this Privacy Policy have the same meanings as in our Terms and
 
 # Information Collection and Use
 
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Location Info, Email Address. The information that we request will be retained by us and used as described in this privacy policy.
+For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to: 
+
+Location Info:
+
+    - Used in the background to find collection sites closest to your current location.
+
+Email Address.
+
+    - Used for authentication purposes, fetching user data from provider, and storing user data in a database.
+
+The information that we request will be retained by us and used as described in this privacy policy.
 
 The app does use third-party services that may collect information used to identify you.
 
