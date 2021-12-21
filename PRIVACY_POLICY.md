@@ -16,9 +16,13 @@ Location Info:
 
     - Used in the background to find collection sites closest to your current location.
 
-Email Address.
+Email Address:
 
     - Used for authentication purposes, fetching user data from provider, and storing user data in a database.
+
+Credit Info:
+
+    - Used by Stripe to process deposits and invoice payments, not collected by Circulr.
 
 The information that we request will be retained by us and used as described in this privacy policy.
 
