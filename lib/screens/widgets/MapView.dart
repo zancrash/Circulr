@@ -304,11 +304,15 @@ class _MapViewState extends State<MapView> {
         // onMapCreated: (controller) => _googleMapController = controller,
         onMapCreated: (controller) async {
           _googleMapController = controller;
-          // locatePosition();
-          if (Platform.isAndroid) {
-            (!locationAlertIssued) ? locationAlert() : locatePosition();
-          } else {
-            // print('device is running iOS, location alert not required.');
+          // Google play doesn't allow location access unless it's tied to core functionality, so disabled for now.
+          // if (Platform.isAndroid) {
+          //   (!locationAlertIssued) ? locationAlert() : locatePosition();
+          // } else {
+          //   // print('device is running iOS, location alert not required.');
+          //   locatePosition();
+          // }
+
+          if (Platform.isIOS) {
             locatePosition();
           }
 
