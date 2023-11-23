@@ -1,16 +1,40 @@
-# circulr_app
+# Circulr
 
-A new Flutter project.
+A cross-platform mobile application that helps users reduce waste and promote reuse.
 
-## Getting Started
+### Download the app on mobile:
 
-This project is a starting point for a Flutter application.
+iOS: https://apps.apple.com/ca/app/circulr-reuse/id1605639496
 
-A few resources to get you started if this is your first Flutter project:
+Android: https://play.google.com/store/apps/details?id=com.circulrshop.circulr
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### How the app works:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Consumers simply return rinsed packaging from the brands we work with to a Circulr bin, and track their return through the Circulr app to receive a deposit or reward. Once the packaging is dropped off Circulr collects it, washes it, and ships it back to the brand to be refilled and put back on store shelves.
+
+
+https://github.com/zancrash/Circulr/assets/17016252/aae1d0fd-07ee-435b-bd4b-2928250de2eb
+
+
+### Run app locally
+
+First, install Flutter: https://docs.flutter.dev/get-started/install
+
+Clone repo:
+
+```
+git clone https://github.com/zancrash/Circulr.git
+```
+
+Navigate to repo:
+
+```
+cd circulr
+```
+
+Ensure you have the relevant emulator installed and running (see above link to Flutter docs), then run this command:
+
+```
+flutter run
+```
+
